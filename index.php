@@ -5,7 +5,7 @@
     
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         
-        <title> Billetterie UTC </title>
+        <title>Suiveur TN09/TN10 GSM - Interface de choix des stages</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -37,7 +37,7 @@
                 
                     <div class="page-header">
                         <a href="#" id="logout" class="btn btn-danger pull-right" style="display: none;"> Logout </a>
-                        <h1>Billetterie UTC - Vente de places</h1> 
+                        <h1>Suiveur TN09/TN10 GSM - Choix des stages</h1> 
                     </div>
                     <div id="alert" style="display:none;" class="alert alert-block">
                         <h4 id="alert-title">Alert title</h4>

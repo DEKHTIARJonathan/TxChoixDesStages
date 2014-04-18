@@ -10,14 +10,14 @@
             <span class="icon-bar"></span>
 
             </a>
-            <a class="brand" href="/">Suiveur TN09/TN10 - Choix des stages</a>
+            <a class="brand" href="/">Suiveur TN09/TN10 GSM - Choix des stages</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li id="accueil">
                         <a href="/">Accueil</a>
                     </li>
                     <li id="voeux">
-                        <a href="/setup/">Réalisation des voeux</a>
+                        <a href="/voeux/">Réalisation des voeux</a>
                     </li>
                     
                     <li id="admin">

@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Page de Contact de l'équipe Billetterie Evenementielle UTC</title>
+        <title>Page de Contact</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Jonathan Dekhtiar">
@@ -28,10 +28,12 @@
         <![endif]-->
 
         <script type="text/javascript">
+        /*
             var RecaptchaOptions = {
                 lang : 'fr',
                 theme : 'white',
             };
+        */
         </script>
 
 
@@ -45,10 +47,10 @@
         
         <div class="container">
 
-            <div class="hero-unit" style="height:170px; padding-top:25px; overflow:hidden;">
-                 <h1>Contacte la Team</h1>
-                    Vous souhaitez prendre part au projet de la Billetterie Évènementielle ?<br>
-                    Vous rencontrez un problème avec l'utilisation de la solution logicielle ?<br><br>
+            <div class="hero-unit" style="height:125px; padding-top:15px; overflow:hidden;">
+                 <h1>Contacte le Responsable des Stages</h1>
+                   <br>
+                    Vous rencontrez un problème avec l'utilisation de la solution logicielle ?<br>
                     <b>N'hésitez pas à nous contacter</b>
              </div>
              <br>
@@ -69,13 +71,15 @@
                         <div class="span4">
                         
                         <?php
-                            require_once('recaptchalib.php');
-                            require_once('mail_conf.inc.php');
-
-                            echo recaptcha_get_html($publickey);
+                         require_once('mail_conf.inc.php');
+    
+                        /*  
+                          	require_once('recaptchalib.php');
+                    		echo recaptcha_get_html($publickey);
+                        */
                         ?>
                         </div>
-                        <div class="span2" style="margin-top:95px;">
+                        <div class="span2" style="margin-top:10px;">
                             <input type="submit" id="contact-submit" class="btn btn-primary" style="width:150px;" value="Envoyer" />
                         </div>
 

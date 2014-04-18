@@ -27,7 +27,7 @@
             // TODO: Verifier que l'utilisateur en question à des droits de vente.
             //       Sinon on le refuse ^^ ici seulement les vendeurs ont le droit de s'authentifier...
             $_SESSION['auth'] = Array("logged" => True, "login_utc" => $login, "cas_url" => Cas::getUrl());
-            return array_merge( Array("success" => Array("title" => "Connexion réussi", "content" => "Nous avons pu vous authentifier...")), is_logged());
+            return array_merge( Array("success" => Array("title" => "Connexion réussi", "content" => "<br>Bienvenue <b>".$_SESSION['auth']["login_utc"]."</b> sur l'interface de réalisation de voeux pour les stages TN09 & TN10")), is_logged());
         }
     }
 

@@ -8,3 +8,4 @@ $_CONFIG['sql_pass'] = "billetterie";
 
 // Chemin vers le serveur CAS (avec le / final)
 $_CONFIG['cas_url'] = "";
+$_CONFIG['service'] = "http://stagestx.jonathandekhtiar.eu/";

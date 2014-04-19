@@ -1,4 +1,11 @@
-<?php header("Content-Type: text/html; charset=UTF-8"); ?>
+<?php
+	// Page d'accueil : /index.php 
+	header("Content-Type: text/html; charset=UTF-8"); 
+	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    require_once $root.'/config.inc.php';
+    require_once $root.'/inc/checksession.php';
+    
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +27,6 @@
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         
         <script src="scripts/jquery-1.9.1.min.js"  ></script>
-        <script type="text/javascript" src="scripts/general.js" charset="utf-8"></script>
 
         
         
@@ -44,7 +50,21 @@
                         <p id="alert-content">Alert content</p>        
                     </div>
                     <p class="lead" id="lead"></p>
-                    <p id="content"></p>
+                    
+                    <p id="content">
+                    <?php
+                    	if( !isset($_SESSION['login']) || $_SESSION['login'] == '')
+                    	{
+                    		echo'Pour pouvoir réaliser des voeux, vous devez vous authentifier.<br />';
+							echo'<a href="inc/connect.php" class="btn btn-large btn-info pull-right" id="cas-connection"> Me connecter </a>';
+						}
+						else
+						{
+							echo"<br>Bienvenue <b>".$_SESSION['auth']["login_utc"]."</b> sur l'interface de réalisation de voeux pour les stages TN09 & TN10";
+							echo'<a href="inc/disconnect.php" class="btn btn-large btn-danger pull-right" id="cas-connection"> Me Déconnecter </a>';
+						}
+					?>
+					</p>
                     <br /><br /><br />
                 </div>
             </div>
@@ -66,6 +86,4 @@
         </div>
     
         <script src="bootstrap/js/bootstrap-modal.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+        <script src="bootstrap/js/bootstrap.min.js">

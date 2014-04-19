@@ -1,7 +1,9 @@
 <?php
 
-require_once 'class/xmlToArrayParser.class.php';
-require_once 'config.inc.php';
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+
+require_once $root.'/class/xmlToArrayParser.class.php';
+require_once $root.'/config.inc.php';
 
 class Cas {
 
@@ -24,3 +26,4 @@ class Cas {
 	}
 
 }
+?>

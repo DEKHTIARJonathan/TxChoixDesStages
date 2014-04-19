@@ -55,13 +55,17 @@
                     <?php
                     	if( !isset($_SESSION['login']) || $_SESSION['login'] == '')
                     	{
-                    		echo'Pour pouvoir réaliser des voeux, vous devez vous authentifier.<br />';
-							echo'<a href="inc/connect.php" class="btn btn-large btn-info pull-right" id="cas-connection"> Me connecter </a>';
+                    		echo '<div class="alert alert-success">';
+                    		echo 'Pour pouvoir réaliser des voeux, vous devez vous authentifier.<br />';
+							echo '<a href="inc/connect.php" class="btn btn-large btn-info pull-right" id="cas-connection"> Me connecter </a>';
+							echo '</div>';
 						}
 						else
 						{
-							echo"<br>Bienvenue <b>".$_SESSION['auth']["login_utc"]."</b> sur l'interface de réalisation de voeux pour les stages TN09 & TN10";
-							echo'<a href="inc/disconnect.php" class="btn btn-large btn-danger pull-right" id="cas-connection"> Me Déconnecter </a>';
+							echo '<div class="alert alert-success">';
+							echo "<br>Bienvenue <b>".$_SESSION['auth']["login_utc"]."</b> sur l'interface de réalisation de voeux pour les stages TN09 & TN10";
+							echo '<a href="inc/disconnect.php" class="btn btn-large btn-danger pull-right" id="cas-connection"> Me Déconnecter </a>';
+							echo '</div>';
 						}
 					?>
 					</p>

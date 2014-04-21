@@ -62,6 +62,7 @@
 					<tr>
 					  <th>#</th>
 					  <th>Titre du Stage</th>
+                      <th>Description Complète</th>
 					  <th>Nom de L'étudiant</th>
 					  <th>Type de Stage</th>
 					  <th>Note</th>
@@ -79,7 +80,7 @@
 							$titre = $row['titre'];
 							$etudiant = $row['etudiant'];
 							$uv = $row['uv'];
-							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
+							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td><a data-toggle="modal" href="#stageFullDesc" style="padding-left:50px">Détail</a></td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
                             $stages[] = $id;
 						}
 						
@@ -87,6 +88,25 @@
 					</tbody>
 				</table>
 			</div>
+
+
+
+            <div class="modal" id="stageFullDesc">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                      Content for the dialog / modal goes here.
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#" data-dismiss="modal" class="btn">Close</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
             
             
             <?php
@@ -96,30 +116,38 @@
         <script src="../scripts/jquery.bpopup.min.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../scripts/jquery.easing.1.3.js"></script>
+
+        <script type="text/javascript">
+            $().click(function()
+            {
+                $('#stageFullDesc').modal({show:true})
+            }));
+        </script>
+
         <script type="text/javascript">
         
-        $(function() {
-          $.fn.raty.defaults.path = '../raty/img';
+            $(function() {
+              $.fn.raty.defaults.path = '../raty/img';
 
-         
-        <?php
-            foreach ($stages as $id){
-            echo "$('#score".$id."').raty({
-                cancel   : true,
-                cancelOff: 'cancel-off.png',
-                cancelOn : 'cancel-on.png',
-                score: function() {
-                return $(this).attr('data-score');
-                    }
-                });
-                ";
-            }  
-        ?>
-          
+             
+            <?php
+                foreach ($stages as $id){
+                echo "$('#score".$id."').raty({
+                    cancel   : true,
+                    cancelOff: 'cancel-off.png',
+                    cancelOn : 'cancel-on.png',
+                    score: function() {
+                    return $(this).attr('data-score');
+                        }
+                    });
+                    ";
+                }  
+            ?>
+              
 
-        });
+            });
 
-  </script>
+        </script>
         
     </body>
 

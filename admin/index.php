@@ -46,18 +46,19 @@
         
         <div class="container">
 
-            <div class="hero-unit">
-                 <h1>Installation de la Badgeuse NFC</h1>
+            <div class="jumbotron" style="padding-top:15px; overflow:hidden; height:150px">
 
-                <p>
-                    <br>Cette page a pour but de vous aider à paramétrer et utiliser la Billetterie Évènementielle de l'UTC.<br>
-                    Vous y trouverez toutes les informations nécessaires afin de faire fonctionner le système Badgeuse NFC
+                <h1 style="font-size:300%;">Réalisation des voeux.</h1>
+                <p style="margin-top:-20px">
+                    <font size='3' >
+                        <br>Veuillez réaliser vos voeux en vue de l'attribution futur des suiveurs de stage TN09 & TN10.
+                    </font>
                 </p>
 
             </div>
             <!-- Example row of columns -->
             <div class="row">
-                <div class="span4">
+                <div class="col-md-4">
                      <h2>Installation de Ubuntu</h2>
 
                     <p>
@@ -68,7 +69,7 @@
                         <a class="btn btn-info" href="http://www.ubuntu.com/download" target="_blank">Site Officiel de Ubuntu</a> <a class="btn btn-info" href="http://www.debian.org/distrib/" target="_blank">Site Officiel de Debian</a>
                     </p>
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                      <h2>Achat de la badgeuse</h2>
 
                     <p>
@@ -82,7 +83,7 @@
                     </p>
                     
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                      <h2>Installation du Logiciel</h2>
 
                     <p>
@@ -101,9 +102,9 @@
             ?>
             
             <div id="popup" style="left:200px; position: relative; top: 619px; z-index: 9999; display: none; opacity:1; width:1075px;">
-                <span class="button b-close">
-                    <span>Close</span>
-                </span>
+                <col-md- class="button b-close">
+                    <col-md->Close</col-md->
+                </col-md->
                 
                 <div class="hero-unit" style="padding-top:20px; height:90px;">
                     <h1>Installation Badgeuse NFC</h1>
@@ -112,14 +113,14 @@
             
                 <div class="container-fluid">
                     <div class="row-fluid">        
-                        <div class="span3">
+                        <div class="col-md-3">
                             <h3>Menu</h3><br>
                                 
                                 <a href="#" class="btn btn-info btn-large" style="width: 85%;" name="div1">Installation du Driver</a><br><br>
                                 <a href="#" class="btn btn-info btn-large" style="width: 85%;" name="div2">Installation des Librairies</a><br><br>
                                 <a href="#" class="btn btn-info btn-large" style="width: 85%;" name="div3">Lancement du Logiciel</a><br><br>
                         </div>
-                        <div class="span9" style="max-height : 370px; overflow:auto;">
+                        <div class="col-md-9" style="max-height : 370px; overflow:auto;">
                             <div id="div1" style="display:none">
                             <h3> Installation du Driver PC/SC</h3>
                             Installation du Driver Linux : <a href="../driver/drivers.zip" class="btn btn-danger">Download</a><br>

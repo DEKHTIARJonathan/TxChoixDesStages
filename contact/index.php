@@ -47,58 +47,70 @@
         
         <div class="container">
 
-            <div class="hero-unit" style="height:125px; padding-top:15px; overflow:hidden;">
-                 <h1>Contacte le Responsable des Stages</h1>
-                   <br>
-                    Vous rencontrez un problème avec l'utilisation de la solution logicielle ?<br>
-                    <b>N'hésitez pas à nous contacter</b>
+            <div class="jumbotron" style="padding-top:15px; overflow:hidden; height:200px">
+                    
+                <h1 style="font-size:300%;">Contacte le Responsable des Stages</h1>
+                <p style="margin-top:-20px">
+                    <font size='3' >
+                        <br>Vous rencontrez un problème avec l'utilisation de la solution logicielle ?<br>
+                        <b>N'hésitez pas à nous contacter</b>
+                    </font>
+                </p>
+
              </div>
              <br>
              
-            <form method="post" name="MailerForm" id="MailerForm" action="#">
-            
-                <div class="row-fluid controls">
-                    <input id="name" name="name" type="text" class="span6" placeholder="Nom"> &#160;&#160;&#160;&#160;&#160;
-                    <input id="email" name="email" type="email" class="span6" placeholder="Adresse Email"><br>
-                    <div class="row-fluid">
-                            <textarea id="message" name="message" class="span12" placeholder="Votre Message" rows="8"></textarea>
-                    </div><br>
-                    
-                    
-                    
-                    
-                     <div class="row-fluid" style="margin-bottom:-50px;">
-                        <div class="span4">
-                        
-                        <?php
-                         require_once('mail_conf.inc.php');
-    
-                        /*  
-                          	require_once('recaptchalib.php');
-                    		echo recaptcha_get_html($publickey);
-                        */
-                        ?>
-                        </div>
-                        <div class="span2" style="margin-top:10px;">
-                            <input type="submit" id="contact-submit" class="btn btn-primary" style="width:150px;" value="Envoyer" />
-                        </div>
+            <div class="row">    
+                <!-- Alignment -->
+                <div class="col-sm-12">
+                    <!-- Form itself -->
+                    <form name="sentMessage"  id="contactForm"  novalidate>
+                        <table class="col-sm-12">
+                            <tr>
+                                <td>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Votre Nom" id="name" required data-validation-required-message="Veuillez entrer votre nom" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <input type="email" class="form-control" placeholder="Votre Email" id="email" require data-validation-required-message="Veuillez entrer votre email" />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>  
 
-                    </div>
-                    
+                        <div class="control-group">
+                            <div class="controls">
+                                <textarea rows="10" cols="100" class="form-control" placeholder="Votre Message" id="message" required data-validation-required-message="Veuillez entrer votre message" minlength="5" data-validation-minlength-message="Min 5 characters" maxlength="999" style="resize:none"></textarea>
+                            </div>
+                        </div>        
+                        <div id="success"> </div> <!-- For success/fail messages -->
+                        <button type="submit" class="btn btn-primary pull-right">Send</button><br />
+                    </form>
                 </div>
-                  
-              </form>
-                  
-            </div> 
+            </div>
+                
             
-                     
+                 
             <?php
                 include("../parts/footer.php");
             ?>
-    
+            
+        </div>
         
         
          
     </body>
+
+     <!-- JS FILES -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
+ <script src="./js/bootstrap.min.js"></script>
+ <script src="./js/jqBootstrapValidation.js"></script>
+ <script src="./js/contact_me.js"></script>
 
 </html>

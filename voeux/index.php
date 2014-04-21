@@ -80,7 +80,7 @@
 							$titre = $row['titre'];
 							$etudiant = $row['etudiant'];
 							$uv = $row['uv'];
-							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td><a data-toggle="modal" href="#stageFullDesc" style="padding-left:50px">Détail</a></td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
+							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td><a data-toggle="modal" id="'.$id.'" href="#stageFullDesc" style="padding-left:50px">Détail</a></td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
                             $stages[] = $id;
 						}
 						
@@ -96,11 +96,57 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h4 class="modal-title">Modal title</h4>
+                      <h4 class="modal-title">Assistant Ingénieur modélisation</h4>
                     </div>
                     <div class="modal-body">
-                      Content for the dialog / modal goes here.
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6" style="text-align:left;display: inline;"><b>Étudiant : </b><div id="descName" style="display: inline;">Alexandre Dubois</div></div>
+                            <div class="col-md-6" style="text-align:left;"><b>Type de Stage : </b><div id="descType" style="display: inline;">TN09</div></div>
+                        </div>
+                        <hr>
+                        <div id="descFull" >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis magna sapien, ac blandit purus posuere ullamcorper. 
+                            Sed venenatis ultrices nisl. Vivamus nibh massa, posuere a tortor ut, ornare tincidunt augue. 
+                            Sed vulputate lectus ac iaculis aliquam. 
+                            Cras a tempus urna. Nullam consequat, felis at pulvinar laoreet, tortor justo auctor mauris, eu posuere ipsum magna et turpis. 
+                            llam elementum nulla pulvinar lectus malesuada ornare. Morbi auctor massa et bibendum pretium. 
+                            Donec nec leo a eros pulvinar facilisis posuere vel elit. Suspendisse vitae venenatis libero. 
+                            Proin tempus dui non nulla volutpat viverra. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            <br><br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis magna sapien, ac blandit purus posuere ullamcorper. 
+                            Sed venenatis ultrices nisl. Vivamus nibh massa, posuere a tortor ut, ornare tincidunt augue. 
+                            Sed vulputate lectus ac iaculis aliquam. 
+                            Cras a tempus urna. Nullam consequat, felis at pulvinar laoreet, tortor justo auctor mauris, eu posuere ipsum magna et turpis. 
+                            llam elementum nulla pulvinar lectus malesuada ornare. Morbi auctor massa et bibendum pretium. 
+                            Donec nec leo a eros pulvinar facilisis posuere vel elit. Suspendisse vitae venenatis libero. 
+                            Proin tempus dui non nulla volutpat viverra. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            <br><br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis magna sapien, ac blandit purus posuere ullamcorper. 
+                            Sed venenatis ultrices nisl. Vivamus nibh massa, posuere a tortor ut, ornare tincidunt augue. 
+                            Sed vulputate lectus ac iaculis aliquam. 
+                            Cras a tempus urna. Nullam consequat, felis at pulvinar laoreet, tortor justo auctor mauris, eu posuere ipsum magna et turpis. 
+                            llam elementum nulla pulvinar lectus malesuada ornare. Morbi auctor massa et bibendum pretium. 
+                            Donec nec leo a eros pulvinar facilisis posuere vel elit. Suspendisse vitae venenatis libero. 
+                            Proin tempus dui non nulla volutpat viverra. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            <br><br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis magna sapien, ac blandit purus posuere ullamcorper. 
+                            Sed venenatis ultrices nisl. Vivamus nibh massa, posuere a tortor ut, ornare tincidunt augue. 
+                            Sed vulputate lectus ac iaculis aliquam. 
+                            Cras a tempus urna. Nullam consequat, felis at pulvinar laoreet, tortor justo auctor mauris, eu posuere ipsum magna et turpis. 
+                            llam elementum nulla pulvinar lectus malesuada ornare. Morbi auctor massa et bibendum pretium. 
+                            Donec nec leo a eros pulvinar facilisis posuere vel elit. Suspendisse vitae venenatis libero. 
+                            Proin tempus dui non nulla volutpat viverra. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            <br><br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In facilisis magna sapien, ac blandit purus posuere ullamcorper. 
+                            Sed venenatis ultrices nisl. Vivamus nibh massa, posuere a tortor ut, ornare tincidunt augue. 
+                            Sed vulputate lectus ac iaculis aliquam. 
+                            Cras a tempus urna. Nullam consequat, felis at pulvinar laoreet, tortor justo auctor mauris, eu posuere ipsum magna et turpis. 
+                            llam elementum nulla pulvinar lectus malesuada ornare. Morbi auctor massa et bibendum pretium. 
+                            Donec nec leo a eros pulvinar facilisis posuere vel elit. Suspendisse vitae venenatis libero. 
+                            Proin tempus dui non nulla volutpat viverra. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            <br><br>
+                        </div>
+                      </div>
                     <div class="modal-footer">
                       <a href="#" data-dismiss="modal" class="btn">Close</a>
                     </div>
@@ -120,7 +166,8 @@
         <script type="text/javascript">
             $().click(function()
             {
-                $('#stageFullDesc').modal({show:true})
+                $('#stageFullDesc').modal({show:true});
+                $.ajax();
             }));
         </script>
 

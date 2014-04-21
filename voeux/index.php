@@ -18,27 +18,15 @@
 
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         
-        <link rel="stylesheet" href="../css/popup.css">
-        
         <style type="text/css">
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
               }
         </style>
-        
-        <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-                        
+                    
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        
-        <script>
-
-            $('input').on({
-                mouseenter: function (e) {  alert("Changed: " + $(this).val()) },
-                mouseleave: function (e) {  alert("Changed: " + $(this).val())}
-            });
-
-		</script>
+        <script type="text/javascript" src="../raty/jquery.raty.min.js"></script>
 
 
                 
@@ -85,12 +73,14 @@
 					<?php
 	
 						$sql =  'SELECT idStage as id, titreStage as titre, nomEtudiant as etudiant, uv FROM stages ORDER BY id';
+                        $stages = array();
 						foreach  ($connexion->query($sql) as $row) {
 							$id = $row['id'];
 							$titre = $row['titre'];
 							$etudiant = $row['etudiant'];
 							$uv = $row['uv'];
-							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><input type="number" name="your_awesome_parameter" id="some_id" class="rating" data-clearable="remove"/></td></tr>';
+							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
+                            $stages[] = $id;
 						}
 						
 					?>
@@ -106,8 +96,30 @@
         <script src="../scripts/jquery.bpopup.min.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../scripts/jquery.easing.1.3.js"></script>
-        <script src="../scripts/bootstrap-rating-input.min.js"></script>
+        <script type="text/javascript">
         
+        $(function() {
+          $.fn.raty.defaults.path = '../raty/img';
+
+         
+        <?php
+            foreach ($stages as $id){
+            echo "$('#score".$id."').raty({
+                cancel   : true,
+                cancelOff: 'cancel-off.png',
+                cancelOn : 'cancel-on.png',
+                score: function() {
+                return $(this).attr('data-score');
+                    }
+                });
+                ";
+            }  
+        ?>
+          
+
+        });
+
+  </script>
         
     </body>
 

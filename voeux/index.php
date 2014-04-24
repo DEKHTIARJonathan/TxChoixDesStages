@@ -1,7 +1,7 @@
 <?php
-	// Page de voeux : /voeux/index.php
-	header("Content-Type: text/html; charset=UTF-8"); 
-	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    // Page de voeux : /voeux/index.php
+    header("Content-Type: text/html; charset=UTF-8"); 
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once $root.'/config.inc.php';
     require_once $root.'/inc/checksession.php';
     require_once $root.'/inc/dbconnect.php';
@@ -22,8 +22,37 @@
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
-              }
+            }
+            
+            td
+            {
+                vertical-align: middle;
+            }
+            th
+            {
+                text-align:center;
+            }
+
+            .modal.modal-wide .modal-dialog {
+                width: 90%;
+            }
+
+            .modal-wide .modal-body {
+                overflow-y: auto;
+            }
+/*
+            .table-scroll td {
+                padding: 3px 10px;
+            }
+
+            .table-scroll thead > tr {
+                position:relative;
+                display:block;
+            }
+*/
+
         </style>
+
                     
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="../raty/jquery.raty.min.js"></script>
@@ -57,40 +86,53 @@
             </div>
             
             <div align="center">
-				<table class="table table-hover">
-				  <thead>
-					<tr>
-					  <th>#</th>
-					  <th>Titre du Stage</th>
+                <table class="table table-hover" style="text-align:center;">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Type de Stage</th>
+                      <th>Pays</th>
+                      <th>Titre du Stage</th>
+                      <th>Nom de l'Entreprise</th>
                       <th>Description Complète</th>
-					  <th>Nom de L'étudiant</th>
-					  <th>Type de Stage</th>
-					  <th>Note</th>
-					</tr>
-				  </thead>
-				  <tbody>
+                      <th>Note</th>
+                    </tr>
+                  </thead>
+                  <tbody data-bind="foreach: MediaGroups">
                 
               
-					<?php
-	
-						$sql =  'SELECT idStage as id, titreStage as titre, nomEtudiant as etudiant, uv FROM stages ORDER BY id';
+                    <?php
+    
+                        $sql =  'SELECT idStage as id, titreStage as titre, nomEntreprise as entreprise, uv, pays FROM stages ORDER BY id';
                         $stages = array();
-						foreach  ($connexion->query($sql) as $row) {
-							$id = $row['id'];
-							$titre = $row['titre'];
-							$etudiant = $row['etudiant'];
-							$uv = $row['uv'];
-							echo '<tr><td>'.$id.'</td><td>'.$titre.'</td><td><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc" style="padding-left:50px">Détail</a></td><td>'.$etudiant.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
+                        foreach  ($connexion->query($sql) as $row) {
+                            $id = $row['id'];
+                            $pays = $row['pays'];
+                            $titre = $row['titre'];
+                            $entreprise = $row['entreprise'];
+                            $uv = $row['uv'];
+                            //echo '<tr><td>'.$id.'</td><td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td><td>'.$pays.'</td><td><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détail</a></td><td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
+                            echo 
+                                    '<tr>
+                                        <td>'.$id.'</td>
+                                        <td>'.$uv.'</td>
+                                        <td>'.$pays.'</td>
+                                        <td style="max-width: 300px;">'.$titre.'</td>
+                                        <td style="max-width: 100px;">'.$entreprise.'</td>
+                                        <td><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
+                                        <td><div id="score'.$id.'" data-score="0"></div></td>
+                                    </tr>';
                             $stages[] = $id;
-						}
-						
-					?>
-					</tbody>
-				</table>
-			</div>
-
-            <div class="modal" id="stageFullDesc">
+                        }
+                        
+                    ?>
+                    </tbody>
+                </table>
             </div>
+
+            <div class="modal modal-wide fade" id="stageFullDesc">
+            </div>
+
             
             
             <?php
@@ -110,15 +152,33 @@
             <?php
                 foreach ($stages as $id){
 
-                echo "$('#score".$id."').raty({
+                echo '$("#score'.$id.'").raty({
                     cancel   : true,
-                    cancelOff: 'cancel-off.png',
-                    cancelOn : 'cancel-on.png',
+                    cancelOff: "cancel-off.png",
+                    cancelOn : "cancel-on.png",
                     score: function() {
-                    return $(this).attr('data-score');
+                    return $(this).attr("data-score");
+                        },
+                    click: function(score, evt) {
+                        if (score == null) {
+                            score = 0;
                         }
+                        $.ajax(
+                        {
+                            url : "vote.php",
+                            type : "GET",
+                            data: { stageID: $(this).attr("id").substring(5), note: score },
+                            dataType : "html",
+
+                            success: function(data){
+                                alert(data);
+                            }
+                            
+                        });
+                    },
                     });
-                    ";
+
+                    ';
                 }  
             ?>
               
@@ -127,7 +187,6 @@
 
             <?php
                 foreach ($stages as $id){
-
                     echo '$("#link'.$id.'").click(function()
                     {
                         $("stageFullDesc").modal({show:true});
@@ -135,9 +194,9 @@
                         {
                             url : "stageDesc.php",
                             type : "GET",
-                            data : "stageID=" + $(this).attr("id").substring(4),
+                            data: { stageID: $(this).attr("id").substring(4)},
                             dataType : "html",
-                            
+
                             success: function(data){
                                 $("#stageFullDesc").html(data);
                             }
@@ -150,6 +209,4 @@
 
         </script>
         
-    </body>
-
-</html>
+   

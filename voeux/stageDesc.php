@@ -14,13 +14,15 @@
     else
     {
     	$id = $_GET["stageID"];
-    	$sth = $connexion->prepare('SELECT titreStage as titre, nomEtudiant as etudiant, uv, descriptionComplete as full FROM stages where idStage="'.$id.'"');
+    	$sth = $connexion->prepare('SELECT titreStage as titre, nomEtudiant as etudiant, nomEntreprise as entreprise, uv, pays, descriptionComplete as full FROM stages where idStage="'.$id.'"');
 		$sth->execute();
 		$result = $sth -> fetch(PDO::FETCH_ASSOC);
 		$titre = $result['titre'];
 		$etudiant = $result['etudiant'];
 		$uv = $result['uv'];
 		$full = $result['full'];
+		$entreprise = $result['entreprise'];
+		$pays = $result['pays'];
 
 		echo '<div class="modal-dialog">
 					<div class="modal-content">
@@ -30,8 +32,13 @@
 						</div>
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-6" style="text-align:left;display: inline;"><b>Étudiant : </b><div id="descName" style="display: inline;">'.$etudiant.'</div></div>
-								<div class="col-md-6" style="text-align:left;"><b>Type de Stage : </b><div id="descType" style="display: inline;">'.$uv.'</div></div>
+								<div class="col-md-6" style="text-align:left;"><b>Étudiant : </b>'.$etudiant.'</div>
+								<div class="col-md-6" style="text-align:left;"><b>Type de Stage : </b>'.$uv.'</div>
+							</div>
+							<br><br>
+							<div class="row">
+								<div class="col-md-6" style="text-align:left;"><b>Entreprise : </b>'.$entreprise.'</div>
+								<div class="col-md-6" style="text-align:left;"><b>Pays : </b>'.$pays.'</div>
 							</div>
 							<hr>
 							<div id="descFull" >
@@ -45,6 +52,4 @@
 				</div>';
     }
 
-	
-					
-
+?>

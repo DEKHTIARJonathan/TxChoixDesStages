@@ -14,9 +14,12 @@
     else
     {
     	$id = $_GET["stageID"];
-    	$sth = $connexion->prepare('SELECT titreStage as titre, nomEtudiant as etudiant, nomEntreprise as entreprise, uv, pays, descriptionComplete as full FROM stages where idStage="'.$id.'"');
+
+    	$sth = $connexion->prepare('SELECT titreStage as titre, nomEtudiant as etudiant, nomEntreprise as entreprise, uv, pays, descriptionComplete as full FROM stages where idStage= :idStage');
+		$sth->bindParam(':idStage', $id);
 		$sth->execute();
 		$result = $sth -> fetch(PDO::FETCH_ASSOC);
+
 		$titre = $result['titre'];
 		$etudiant = $result['etudiant'];
 		$uv = $result['uv'];
@@ -47,9 +50,4 @@
 						</div>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn btn-info">Close</a>
-						</div>
-					</div>
-				</div>';
-    }
-
-?>
+						</d

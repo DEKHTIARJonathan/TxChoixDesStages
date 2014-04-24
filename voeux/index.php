@@ -104,23 +104,33 @@
                     <?php
     
                         $sql =  'SELECT idStage as id, titreStage as titre, nomEntreprise as entreprise, uv, pays FROM stages ORDER BY id';
+                        $sth = $connexion->prepare('SELECT note FROM votes where login = :login and stage= :idStage');
+                        $sth->bindParam(':login', $login);
+                        $sth->bindParam(':idStage', $id);
+                        $login = $_SESSION['login'];
+
                         $stages = array();
                         foreach  ($connexion->query($sql) as $row) {
+
                             $id = $row['id'];
+                            
+                            $sth->execute();
+                            $result = $sth -> fetch(PDO::FETCH_ASSOC);
+                            $note = $result['note'];
+
                             $pays = $row['pays'];
                             $titre = $row['titre'];
                             $entreprise = $row['entreprise'];
                             $uv = $row['uv'];
-                            //echo '<tr><td>'.$id.'</td><td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td><td>'.$pays.'</td><td><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détail</a></td><td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td><td>'.$uv.'</td><td><div id="score'.$id.'" data-score="0"></div></td></tr>';
                             echo 
                                     '<tr>
-                                        <td>'.$id.'</td>
-                                        <td>'.$uv.'</td>
-                                        <td>'.$pays.'</td>
-                                        <td style="max-width: 300px;">'.$titre.'</td>
-                                        <td style="max-width: 100px;">'.$entreprise.'</td>
-                                        <td><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
-                                        <td><div id="score'.$id.'" data-score="0"></div></td>
+                                        <td style="vertical-align:middle;">'.$id.'</td>
+                                        <td style="vertical-align:middle;">'.$uv.'</td>
+                                        <td style="vertical-align:middle;">'.$pays.'</td>
+                                        <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
+                                        <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
+                                        <td style="vertical-align:middle;"><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
+                                        <td style="vertical-align:middle;"><div id="score'.$id.'" data-score="'.$note.'"></div></td>
                                     </tr>';
                             $stages[] = $id;
                         }
@@ -171,7 +181,9 @@
                             dataType : "html",
 
                             success: function(data){
-                                alert(data);
+                                if (data != 1) {
+                                    alert("Attention, cette action n\'a pas pu être enregistrée.");
+                                }
                             }
                             
                         });

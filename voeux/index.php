@@ -122,6 +122,7 @@
                             $titre = $row['titre'];
                             $entreprise = $row['entreprise'];
                             $uv = $row['uv'];
+
                             echo 
                                     '<tr>
                                         <td style="vertical-align:middle;">'.$id.'</td>
@@ -167,8 +168,8 @@
                     cancelOff: "cancel-off.png",
                     cancelOn : "cancel-on.png",
                     score: function() {
-                    return $(this).attr("data-score");
-                        },
+                        return $(this).attr("data-score");
+                    },
                     click: function(score, evt) {
                         if (score == null) {
                             score = 0;
@@ -188,9 +189,8 @@
                             
                         });
                     },
-                    });
-
-                    ';
+                });
+                ';
                 }  
             ?>
               

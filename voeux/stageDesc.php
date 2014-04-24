@@ -50,4 +50,9 @@
 						</div>
 						<div class="modal-footer">
 							<a href="#" data-dismiss="modal" class="btn btn-info">Close</a>
-						</d
+						</div>
+					</div>
+				</div>';
+    }
+
+?> 

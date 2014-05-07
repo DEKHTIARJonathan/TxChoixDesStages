@@ -1,4 +1,8 @@
 *~
 /config.inc.php
 .htaccess
+/tmp/
+/tmp/*
 contact/mail_conf.inc.php
+/admin/files/*
+admin/files/*

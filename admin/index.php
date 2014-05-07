@@ -1,7 +1,7 @@
 <?php
-	// Page d'administration : /admin/index.php
-	header("Content-Type: text/html; charset=UTF-8"); 
-	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    // Page d'administration : /admin/index.php
+    header("Content-Type: text/html; charset=UTF-8"); 
+    $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once $root.'/config.inc.php';
     require_once $root.'/inc/checksession.php';
 ?>
@@ -17,53 +17,129 @@
         <meta name="author" content="Jonathan Dekhtiar">
 
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        
-        <link rel="stylesheet" href="../css/popup.css">
-        
+
         <style type="text/css">
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
-              }
+            }
+
+            .hide {
+                display:none;
+            }
+            .show {
+                display:inline;
+            }
         </style>
-        
-        <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+
         
         <script src="../scripts/jquery-1.9.1.min.js"  ></script>
+        <script type="text/javascript" src="../scripts/ajaxfileupload.js"></script>
+        
+        <script type="text/javascript">
+
+            function ajaxFileUpload()
+            {
+                $(document).ajaxStart(function(){ 
+                    $("#loadingGIF").attr('class', 'show'); 
+                    $("#resultatUpload").attr('class', 'hide'); 
+                });
+                $(document).ajaxComplete(function(){ 
+                    $("#loadingGIF").attr('class', 'hide'); 
+                });
+
+                $.ajaxFileUpload
+                (
+                    {
+                        url:'doajaxfileupload.php',
+                        secureuri:false,
+                        fileElementId:'excelInput',
+                        dataType: 'json',
+                        data:{name:'logan', id:'id'},
+                        success: function (data, status)
+                        {
+                            if(typeof(data.error) != 'undefined')
+                            {
+                                if(data.error != '')
+                                {
+                                    //alert(data.error);
+                                    $("#resultatUpload").attr('class', 'alert alert-warning show');
+                                    $("#resultatUpload").html(data.error);
+                                    
+                                }else
+                                {
+                                    //alert(data.msg);
+                                    $("#resultatUpload").attr('class', 'alert alert-success show');
+                                    $("#resultatUpload").html(data.msg);
+                                   
+                                }
+                            }
+                        },
+                        error: function (data, status, e)
+                        {
+                            alert(e);
+                        }
+                    }
+                )
                 
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+                return false;
 
-</head>
-    
+            }
+        </script>   
+
+    </head>
+
     <body>
-        
-        <?php
-            include("../parts/header.php");
-        ?>
-        
+
         <div class="container">
+            <?php
+                include("../parts/header.php");
+            ?>
+ 
+            <div class="container">
 
-            <div class="jumbotron" style="padding-top:15px; overflow:hidden; height:150px">
+                <div class="jumbotron col-md-12" style="padding-top:15px; overflow:hidden; height:150px">
 
-                <h1 style="font-size:300%;">Page d'administration</h1>
-                <p style="margin-top:-20px">
-                    <font size='3' >
-                        <br>** En Construction **
-                    </font>
-                </p>
+                    <h1 style="font-size:300%;">Page d'administration</h1>
+                    <p style="margin-top:-20px">
+                        <font size='3' >
+                            <br>** En Construction **
+                        </font>
+                    </p>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="alert alert-danger">
+                        Veuillez choisir le fichier Excel à importer dans la base de données.<br><br>
+                        <b>Attention, l'upload effacera la base de données au complet (votes / stages présents / notes ...)</b>
+                    </div>
+        
+                    <img id="loadingGIF" src="../images/loading.gif" class="hide">
+                    <form name="form" action="" method="POST" enctype="multipart/form-data">
+
+                        <input type="file" title="Search for the Excel File to Import" class="btn-primary" id="excelInput"  name="excelInput" class="input">
+                        <button class="btn btn-success" id="buttonUpload" onclick="return ajaxFileUpload();" style="margin-left:40px;">Upload</button>     
+       
+                    </form>     
+
+                    <div class="hide" id="resultatUpload" style="margin-top:30px"> 
+                
+                    </div>
+
+                </div>
 
             </div>
         </div>
-        
-        <script src="../scripts/jquery.bpopup.min.js"></script>
+
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-         <script src="../scripts/jquery.easing.1.3.js"></script>
-        <script src="../scripts/scripting.min.js"></script>
-        
+        <script src="../scripts/bootstrap.file-input.js"></script>
+        <script type="text/javascript">
+            $('input[type=file]').bootstrapFileInput();
+            $('.file-inputs').bootstrapFileInput();
+        </script>
         
     </body>
-
 </html>

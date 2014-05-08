@@ -62,6 +62,8 @@
 				move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $chemin_destination.'import.'.$ext);
 			}
 
+			include 'updateDB.php';
+
 	}	
 
 	echo "{";

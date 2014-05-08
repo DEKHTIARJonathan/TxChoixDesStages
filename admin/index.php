@@ -152,41 +152,44 @@
                 <div class="jumbotron col-md-12" style="padding-top:15px; overflow:hidden; height:150px">
 
                     <h1 style="font-size:300%;">Page d'administration</h1>
-                    <p style="margin-top:-20px">
-                        <font size='3' >
-                            <br>** En Construction **
-                        </font>
+                    <p style="font-size:18px; padding-top:7px;">
+                        Cette page permet de nettoyer le système et d'importer les nouvelles données au sein du système.
                     </p>
 
                 </div>
 
                 <div class="col-md-12">
-
+                    
                     <div class="alert alert-danger">
-                        Veuillez choisir le fichier Excel à importer dans la base de données.<br><br>
-                        <b>Attention, l'upload effacera la base de données au complet (votes / stages présents / notes ...)</b>
+                        <b>Instructions :<br><br></b>
+                            <ol>
+                                <li>Nettoyer la base de données des anciennes données en cliquant sur : "Vider la Base de Données".</li>
+                                <li>Rechercher le fichier Excel contenant les stages TN09 en cliquant sur "TN09 : Selectionner le fichier à importer".</li>
+                                <li>Envoyer le fichier sur le serveur en cliquant sur "Envoyer le fichier TN09".</li>
+                                <li>Répéter les instructions 2 et 3 pour les stages TN10.</li>
+                            </ol>
                     </div>
         
                     
                     
                     <div class="col-md-12">
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <form name="form" action="" method="POST" enctype="multipart/form-data">
 
-                                <input type="file" title="TN09 : Search for the Excel File to Import" class="btn-primary" id="excelInputTN09"  name="excelInputTN09" class="input">
-                                <button class="btn btn-success" id="buttonUploadTN09" onclick="return ajaxFileUploadTN09();" style="margin-left:40px;">Upload TN09</button>     
+                                <input type="file" title="TN09 : Selectionner le fichier à importer" class="btn-primary" id="excelInputTN09"  name="excelInputTN09" class="input">
+                                <button class="btn btn-success" id="buttonUploadTN09" onclick="return ajaxFileUploadTN09();" style="margin-left:40px;">Envoyer le fichier TN09</button>     
                
                             </form>
                             <br><br>
                             <form name="form" action="" method="POST" enctype="multipart/form-data">
 
-                                <input type="file" title="TN10 : Search for the Excel File to Import" class="btn-primary" id="excelInputTN10"  name="excelInputTN10" class="input">
-                                <button class="btn btn-success" id="buttonUploadTN10" onclick="return ajaxFileUploadTN10();" style="margin-left:40px;">Upload TN10</button>     
+                                <input type="file" title="TN10 : Selectionner le fichier à importer" class="btn-primary" id="excelInputTN10"  name="excelInputTN10" class="input">
+                                <button class="btn btn-success" id="buttonUploadTN10" onclick="return ajaxFileUploadTN10();" style="margin-left:40px;">Envoyer le fichier TN10</button>     
                
                             </form>
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-danger" id="buttonClear" style="margin-top:40px;width: 250px">Clear Database</button>
+                        <div class="col-md-3" style="">
+                            <button class="btn btn-danger" id="buttonClear" style="margin-top:40px;width: 250px;">Vider la Base de Données</button>
                         </div>
                     </div>
 

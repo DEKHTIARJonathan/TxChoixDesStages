@@ -19,14 +19,22 @@
 					<li id="voeux">
 						<a href="/voeux/">Réalisation des voeux</a>
 					</li>
-			
-					<li id="admin">
-						<a href="/admin/">Administration</a>
-					</li>
+
+					<li class="dropdown"  id="admin">
+		            	<a  href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
+		             	<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Import des stages</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Export des votes</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Management des droits d'accès</a></li>
+		            	</ul>
+		            </li>
 			
 					<li id="contact">
 						<a href="/contact/">Contact</a>
 					</li>
+					
+              </ul>
+            </li>
 			</ul>
 		</div>
 		</div>

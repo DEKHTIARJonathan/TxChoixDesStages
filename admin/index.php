@@ -186,7 +186,7 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-danger" id="buttonClear" onclick="#" style="margin-top:40px;width: 250px">Clear Database</button>
+                            <button class="btn btn-danger" id="buttonClear" style="margin-top:40px;width: 250px">Clear Database</button>
                         </div>
                     </div>
 
@@ -205,6 +205,50 @@
         <script type="text/javascript">
             $('input[type=file]').bootstrapFileInput();
             $('.file-inputs').bootstrapFileInput();
+        </script>
+
+        <script type="text/javascript">
+            $('#buttonClear').click(function()
+            {
+                $(document).ajaxStart(function(){ 
+                    $("#loadingGIF").attr('class', 'show'); 
+                    $("#resultatUpload").attr('class', 'hide'); 
+                });
+                $(document).ajaxComplete(function(){ 
+                    $("#loadingGIF").attr('class', 'hide'); 
+                });
+
+                $.ajax(
+                {
+                    url : "clearDB.php",
+                    type : "GET",
+                    dataType : "json",
+
+                    success: function(data){
+                        //$("#resultatUpload").attr('class', 'alert alert-success show');
+                        //$("#resultatUpload").html(data);
+                        
+
+                        if(typeof(data.error) != 'undefined')
+                        {
+                            if(data.error != '')
+                            {   
+                                $("#resultatUpload").attr('class', 'alert alert-warning show');
+                                $("#resultatUpload").html(data.error);
+                            }
+                            else
+                            {
+                                $("#resultatUpload").attr('class', 'alert alert-success show');
+                                $("#resultatUpload").html(data.msg);
+                            }
+                        }
+
+                    }
+                    
+                });
+
+                return false;
+            });
         </script>
         
     </body>

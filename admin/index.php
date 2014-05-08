@@ -11,7 +11,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Page d'installation du Logiciel Billetterie Evenementielle UTC</title>
+        <title>Page d'administration</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Jonathan Dekhtiar">
@@ -39,7 +39,7 @@
         
         <script type="text/javascript">
 
-            function ajaxFileUpload()
+            function ajaxFileUploadTN09()
             {
                 $(document).ajaxStart(function(){ 
                     $("#loadingGIF").attr('class', 'show'); 
@@ -49,12 +49,12 @@
                     $("#loadingGIF").attr('class', 'hide'); 
                 });
 
-                $.ajaxFileUpload
+                $.ajaxFileUploadTN09
                 (
                     {
-                        url:'doajaxfileupload.php',
+                        url:'doajaxfileuploadTN09.php',
                         secureuri:false,
-                        fileElementId:'excelInput',
+                        fileElementId:'excelInputTN09',
                         dataType: 'json',
                         data:{name:'logan', id:'id'},
                         success: function (data, status)
@@ -62,17 +62,15 @@
                             if(typeof(data.error) != 'undefined')
                             {
                                 if(data.error != '')
-                                {
-                                    //alert(data.error);
+                                {   
                                     $("#resultatUpload").attr('class', 'alert alert-warning show');
                                     $("#resultatUpload").html(data.error);
                                     
-                                }else
+                                }
+                                else
                                 {
-                                    //alert(data.msg);
                                     $("#resultatUpload").attr('class', 'alert alert-success show');
                                     $("#resultatUpload").html(data.msg);
-                                   
                                 }
                             }
                         },
@@ -82,11 +80,61 @@
                         }
                     }
                 )
-                
+
                 return false;
 
-            }
-        </script>   
+            };
+
+        </script>
+
+        <script type="text/javascript">
+
+            function ajaxFileUploadTN10()
+            {
+                $(document).ajaxStart(function(){ 
+                    $("#loadingGIF").attr('class', 'show'); 
+                    $("#resultatUpload").attr('class', 'hide'); 
+                });
+                $(document).ajaxComplete(function(){ 
+                    $("#loadingGIF").attr('class', 'hide'); 
+                });
+
+                $.ajaxFileUploadTN10
+                (
+                    {
+                        url:'doajaxfileuploadTN10.php',
+                        secureuri:false,
+                        fileElementId:'excelInputTN10',
+                        dataType: 'json',
+                        data:{name:'logan', id:'id'},
+                        success: function (data, status)
+                        {
+                            if(typeof(data.error) != 'undefined')
+                            {
+                                if(data.error != '')
+                                {   
+                                    $("#resultatUpload").attr('class', 'alert alert-warning show');
+                                    $("#resultatUpload").html(data.error);
+                                    
+                                }
+                                else
+                                {
+                                    $("#resultatUpload").attr('class', 'alert alert-success show');
+                                    $("#resultatUpload").html(data.msg);
+                                }
+                            }
+                        },
+                        error: function (data, status, e)
+                        {
+                            alert(e);
+                        }
+                    }
+                )
+
+                return false;
+
+            };
+        </script>
 
     </head>
 
@@ -117,17 +165,32 @@
                         <b>Attention, l'upload effacera la base de données au complet (votes / stages présents / notes ...)</b>
                     </div>
         
-                    <img id="loadingGIF" src="../images/loading.gif" class="hide">
-                    <form name="form" action="" method="POST" enctype="multipart/form-data">
+                    
+                    
+                    <div class="col-md-12">
+                        <div class="col-md-8">
+                            <form name="form" action="" method="POST" enctype="multipart/form-data">
 
-                        <input type="file" title="Search for the Excel File to Import" class="btn-primary" id="excelInput"  name="excelInput" class="input">
-                        <button class="btn btn-success" id="buttonUpload" onclick="return ajaxFileUpload();" style="margin-left:40px;">Upload</button>     
-       
-                    </form>     
+                                <input type="file" title="TN09 : Search for the Excel File to Import" class="btn-primary" id="excelInputTN09"  name="excelInputTN09" class="input">
+                                <button class="btn btn-success" id="buttonUploadTN09" onclick="return ajaxFileUploadTN09();" style="margin-left:40px;">Upload TN09</button>     
+               
+                            </form>
+                            <br><br>
+                            <form name="form" action="" method="POST" enctype="multipart/form-data">
 
-                    <div class="hide" id="resultatUpload" style="margin-top:30px"> 
-                
+                                <input type="file" title="TN10 : Search for the Excel File to Import" class="btn-primary" id="excelInputTN10"  name="excelInputTN10" class="input">
+                                <button class="btn btn-success" id="buttonUploadTN10" onclick="return ajaxFileUploadTN10();" style="margin-left:40px;">Upload TN10</button>     
+               
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger" id="buttonClear" onclick="#" style="margin-top:40px;width: 250px">Clear Database</button>
+                        </div>
                     </div>
+
+
+                    <img id="loadingGIF" src="../images/loading.gif" class="hide">
+                    <div class="hide" id="resultatUpload" style="margin-top:200px"></div>
 
                 </div>
 
@@ -136,6 +199,7 @@
 
         <script src="../bootstrap/js/bootstrap.min.js"></script>
         <script src="../scripts/bootstrap.file-input.js"></script>
+        
         <script type="text/javascript">
             $('input[type=file]').bootstrapFileInput();
             $('.file-inputs').bootstrapFileInput();

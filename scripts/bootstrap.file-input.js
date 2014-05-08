@@ -109,7 +109,7 @@ $.fn.bootstrapFileInput = function() {
         $(this).attr('title', fileName);
       } else {
         // Print the fileName aside (right after the the button)
-        $(this).parent().after('<span class="file-input-name">'+fileName+'</span>');
+        $(this).parent().after('<span class="file-input-name" name="fileName">'+fileName+'</span>');
       }
     });
 

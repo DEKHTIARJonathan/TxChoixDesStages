@@ -73,6 +73,7 @@
                                     $("#resultatUpload").html(data.msg);
                                 }
                             }
+                            document.getElementsByName('fileName')[0].innerHTML = "";
                         },
                         error: function (data, status, e)
                         {
@@ -115,7 +116,6 @@
                                 {   
                                     $("#resultatUpload").attr('class', 'alert alert-warning show');
                                     $("#resultatUpload").html(data.error);
-                                    
                                 }
                                 else
                                 {
@@ -123,6 +123,8 @@
                                     $("#resultatUpload").html(data.msg);
                                 }
                             }
+                            document.getElementsByName('fileName')[1].innerHTML = "";
+
                         },
                         error: function (data, status, e)
                         {

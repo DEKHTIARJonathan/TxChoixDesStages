@@ -4,6 +4,7 @@
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once $root.'/config.inc.php';
     require_once $root.'/inc/checksession.php';
+    require_once $root.'/inc/checkaccount.php';
     require_once $root.'/inc/dbconnect.php';
 ?>
 <!DOCTYPE html>
@@ -214,8 +215,7 @@
                             }
                             
                         });
-                    });'
-                    ;
+                    });';
                 }
             ?>
 

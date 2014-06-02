@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 02 Juin 2014 à 14:05
+-- Généré le :  Lun 02 Juin 2014 à 17:22
 -- Version du serveur :  5.6.17-1~dotdeb.1
 -- Version de PHP :  5.4.27-1~dotdeb.1
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `stagestx`
 --
+CREATE DATABASE IF NOT EXISTS `stagestx` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `stagestx`;
 
 -- --------------------------------------------------------
 
@@ -39,24 +41,23 @@ CREATE TABLE IF NOT EXISTS `stages` (
   `pays` varchar(255) NOT NULL,
   `uv` enum('TN09','TN10') NOT NULL,
   `descriptionComplete` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=181 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
 --
--- Création :  Lun 02 Juin 2014 à 14:03
+-- Création :  Lun 02 Juin 2014 à 17:22
 --
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-`userid` int(11) NOT NULL,
   `casLogin` char(8) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,7 @@ ALTER TABLE `stages`
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`userid`), ADD UNIQUE KEY `casLogin` (`casLogin`);
+ ADD PRIMARY KEY (`casLogin`);
 
 --
 -- Index pour la table `votes`
@@ -111,12 +112,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT pour la table `stages`
 --
 ALTER TABLE `stages`
-MODIFY `idStage` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=181;
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `idStage` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- Contraintes pour les tables exportées
 --

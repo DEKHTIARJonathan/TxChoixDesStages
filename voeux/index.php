@@ -92,7 +92,7 @@
                     <tr>
                       <th>#</th>
                       <th>Type de Stage</th>
-                      <th>Pays</th>
+                      <th>Ville</th>
                       <th>Titre du Stage</th>
                       <th>Nom de l'Entreprise</th>
                       <th>Description Complète</th>
@@ -104,7 +104,7 @@
               
                     <?php
     
-                        $sql =  'SELECT idStage as id, titreStage as titre, nomEntreprise as entreprise, uv, pays FROM stages ORDER BY id';
+                        $sql =  'SELECT idStage as id, numSerie, titreStage as titre, nomEntreprise as entreprise, uv, pays, ville, departement as dpt  FROM stages ORDER BY numSerie';
                         $sth = $connexion->prepare('SELECT note FROM votes where login = :login and stage= :idStage');
                         $sth->bindParam(':login', $login);
                         $sth->bindParam(':idStage', $id);
@@ -120,15 +120,24 @@
                             $note = $result['note'];
 
                             $pays = $row['pays'];
+                            $numSerie = $row['numSerie'];
+                            $ville = $row['ville'];
+                            $dpt = $row['dpt'];
                             $titre = $row['titre'];
                             $entreprise = $row['entreprise'];
                             $uv = $row['uv'];
 
+                            // Ce passage sert à afficher la ville des stages en France et le pays des stages à l'étranger.
+                            if (strtolower($pays) == "france")
+                                $city = $ville."(".$dpt.")";
+                            else
+                                $city = $pays; 
+
                             echo 
                                     '<tr>
-                                        <td style="vertical-align:middle;">'.$id.'</td>
+                                        <td style="vertical-align:middle;">'.$numSerie.'</td>
                                         <td style="vertical-align:middle;">'.$uv.'</td>
-                                        <td style="vertical-align:middle;">'.$pays.'</td>
+                                        <td style="vertical-align:middle;">'.$city.'</td>
                                         <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
                                         <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
                                         <td style="vertical-align:middle;"><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>

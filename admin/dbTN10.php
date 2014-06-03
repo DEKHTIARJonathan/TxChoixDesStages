@@ -32,9 +32,9 @@
 		$nomEntreprise = mb_convert_encoding($data->val($i,18),"UTF-8", "ISO-8859-1");
 		$pays = mb_convert_encoding($data->val($i,17),"UTF-8", "ISO-8859-1");
 		$descriptionComplete = mb_convert_encoding($data->val($i,21),"UTF-8", "ISO-8859-1");
-		$numSerie = $descriptionComplete = mb_convert_encoding($data->val($i,30),"UTF-8", "ISO-8859-1");
-		$ville = $descriptionComplete = mb_convert_encoding($data->val($i,15),"UTF-8", "ISO-8859-1");
-		$departement = $descriptionComplete = mb_convert_encoding($data->val($i,16),"UTF-8", "ISO-8859-1");
+		$numSerie = mb_convert_encoding($data->val($i,30),"UTF-8", "ISO-8859-1");
+		$ville = mb_convert_encoding($data->val($i,15),"UTF-8", "ISO-8859-1");
+		$departement = mb_convert_encoding($data->val($i,16),"UTF-8", "ISO-8859-1");
 		
 		$stmt->execute();
 	}

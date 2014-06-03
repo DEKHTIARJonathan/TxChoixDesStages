@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 02 Juin 2014 à 17:22
+-- Généré le :  Lun 02 Juin 2014 à 19:29
 -- Version du serveur :  5.6.17-1~dotdeb.1
 -- Version de PHP :  5.4.27-1~dotdeb.1
 
@@ -21,34 +21,35 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `stagestx`
 --
-CREATE DATABASE IF NOT EXISTS `stagestx` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `stagestx`;
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `stages`
 --
--- Création :  Ven 09 Mai 2014 à 13:56
+-- Création :  Lun 02 Juin 2014 à 19:28
 --
 
 DROP TABLE IF EXISTS `stages`;
 CREATE TABLE IF NOT EXISTS `stages` (
 `idStage` int(11) NOT NULL,
+  `numSerie` int(11) NOT NULL,
   `titreStage` varchar(255) NOT NULL,
   `nomEtudiant` varchar(255) NOT NULL,
   `nomEntreprise` varchar(255) NOT NULL,
   `pays` varchar(255) NOT NULL,
+  `ville` varchar(255) NOT NULL,
+  `departement` tinyint(2) DEFAULT NULL,
   `uv` enum('TN09','TN10') NOT NULL,
   `descriptionComplete` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
 --
--- Création :  Lun 02 Juin 2014 à 17:22
+-- Création :  Lun 02 Juin 2014 à 18:55
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Structure de la table `votes`
 --
--- Création :  Lun 02 Juin 2014 à 14:01
+-- Création :  Lun 02 Juin 2014 à 19:24
 --
 
 DROP TABLE IF EXISTS `votes`;
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `votes` (
 -- Index pour la table `stages`
 --
 ALTER TABLE `stages`
- ADD PRIMARY KEY (`idStage`);
+ ADD PRIMARY KEY (`idStage`), ADD UNIQUE KEY `numSerie` (`numSerie`);
 
 --
 -- Index pour la table `users`
@@ -102,7 +103,7 @@ ALTER TABLE `users`
 -- Index pour la table `votes`
 --
 ALTER TABLE `votes`
- ADD PRIMARY KEY (`login`,`stage`), ADD KEY `fk_stage` (`stage`), ADD KEY `login` (`login`), ADD FULLTEXT KEY `login_2` (`login`);
+ ADD PRIMARY KEY (`login`,`stage`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées

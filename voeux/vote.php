@@ -18,7 +18,7 @@
     	$login = $_SESSION['login'];
 
 
-    	$stmt = $connexion->prepare("REPLACE INTO votes (login, stage, note) VALUES (:login, :stage, :note)");
+    	$stmt = $connexion->prepare("INSERT INTO votes (login, stage, note, voteDate) VALUES (:login, :stage, :note , NOW()) ON DUPLICATE KEY UPDATE note = :note");
 		$stmt->bindParam(':login', $login);
 		$stmt->bindParam(':stage', $stage);
 		$stmt->bindParam(':note', $note);

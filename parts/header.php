@@ -20,10 +20,17 @@
 						<a href="/voeux/">Réalisation des voeux</a>
 					</li>
 
+					<li class="dropdown"  id="account">
+		            	<a  href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Mon Compte<b class="caret"></b></a>
+		             	<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+		             		<li role="presentation"><a role="menuitem" tabindex="-1" href="/account/myaccount.php">Modifier mon compte</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/myaccount.php">Supprimer mon compte</a></li>
+		            	</ul>
+		            </li>
+
 					<li class="dropdown"  id="admin">
 		            	<a  href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Administration<b class="caret"></b></a>
 		             	<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-		             		<li role="presentation"><a role="menuitem" tabindex="-1" href="/myaccount.php">Mon compte</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Import des stages</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/export.php">Export des votes</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Management des droits d'accès</a></li>
@@ -51,9 +58,9 @@
         var btn = document.getElementById("admin"); 
         btn.className= "active";
     }
-    else if (current_href.indexOf("myaccount") !== -1)
+    else if (current_href.indexOf("account") !== -1)
     {        
-        var btn = document.getElementById("admin"); 
+        var btn = document.getElementById("account"); 
         btn.className= "active";
     }
     else if (current_href.indexOf("voeux") !== -1)

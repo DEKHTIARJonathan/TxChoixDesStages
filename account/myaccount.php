@@ -16,12 +16,12 @@
 <html>
     <head>
     
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
         
         <title>Suiveur TN09/TN10 GSM - Interface de choix des stages</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         
         <style type="text/css">
             body {
@@ -42,7 +42,7 @@
             }
         </style>
         
-        <script src="scripts/jquery-1.9.1.min.js"  ></script>
+        <script src="../scripts/jquery-1.9.1.min.js"  ></script>
 
         
         
@@ -51,7 +51,7 @@
     
       <div class="container">
        <?php
-            include("parts/header.php");
+            include("../parts/header.php");
         ?>
         
         <div class="container">
@@ -145,7 +145,7 @@
             </div>
             
             <?php
-                include("parts/footer.php");
+                include("../parts/footer.php");
             ?>
          
             <div class="modal hide fade" id="modal" style="display: none;">
@@ -217,7 +217,7 @@
             });
         </script>
 
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="scripts/jquery.validate.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../scripts/jquery.validate.js"></script>
     </body>
 </html>

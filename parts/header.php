@@ -23,8 +23,8 @@
 					<li class="dropdown"  id="account">
 		            	<a  href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Mon Compte<b class="caret"></b></a>
 		             	<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-		             		<li role="presentation"><a role="menuitem" tabindex="-1" href="/account/myaccount.php">Modifier mon compte</a></li>
-			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/myaccount.php">Supprimer mon compte</a></li>
+		             		<li role="presentation"><a role="menuitem" tabindex="-1" href="/account/">Modifier mon compte</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/account/">Supprimer mon compte</a></li>
 		            	</ul>
 		            </li>
 

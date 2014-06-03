@@ -9,8 +9,10 @@
     // initialisation pour les var. globales.
     $rslt = true;
     $msg = true;
+
+    
 	
-	if(!isset($_GET['login']) || $_GET['login'] == "" || !isset($_GET['email']) || $_GET['email'] == "" || !isset($_GET['lastname']) || $_GET['lastname'] == "" || !isset($_GET['firstname']) || $_GET['firstname'] == "" )
+	if(!isset($_GET['email']) || $_GET['email'] == "" || !isset($_GET['lastname']) || $_GET['lastname'] == "" || !isset($_GET['firstname']) || $_GET['firstname'] == "" )
 	{
 		$rslt = 0;
 		$msg = "Une ou plusieurs des variables ne sont pas correctement définies";
@@ -25,7 +27,7 @@
 		}
 		else {
 
-			$login = strtolower($_GET['login']);
+			$login = strtolower($_SESSION["auth"]["login_utc"]);
 			$lastname = strtoupper($_GET['lastname']);
 			$firstname = ucfirst(strtolower($_GET['firstname'])); 
 
@@ -43,7 +45,6 @@
 				$rslt = 0;
 				$msg = "Problème lors de la mise à jour de la base de données.";
 			}
-
 			
 		}
 	}

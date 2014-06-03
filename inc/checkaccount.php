@@ -19,7 +19,7 @@
     {
     	$currentAddr = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
     	if ($currentAddr != $_CONFIG['home'])
-    		header('Location: '.$_CONFIG['home'].'myaccount.php');
+    		header('Location: '.$_CONFIG['home'].'account/index.php');
     }
 ?>
 

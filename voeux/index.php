@@ -55,7 +55,8 @@
         </style>
 
                     
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        
+        <script src="../scripts/jquery-1.9.1.min.js"  ></script>
         <script type="text/javascript" src="../raty/jquery.raty.min.js"></script>
 
 

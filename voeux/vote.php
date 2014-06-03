@@ -17,13 +17,26 @@
     	$note = $_GET["note"];
     	$login = $_SESSION['login'];
 
+        $rslt = true;
 
-    	$stmt = $connexion->prepare("INSERT INTO votes (login, stage, note, voteDate) VALUES (:login, :stage, :note , NOW()) ON DUPLICATE KEY UPDATE note = :note");
-		$stmt->bindParam(':login', $login);
-		$stmt->bindParam(':stage', $stage);
-		$stmt->bindParam(':note', $note);
+        if ($note > 0){
+            $stmt = $connexion->prepare("INSERT INTO votes (login, stage, note, voteDate) VALUES (:login, :stage, :note , NOW()) ON DUPLICATE KEY UPDATE note = :note");
+            $stmt->bindParam(':login', $login);
+            $stmt->bindParam(':stage', $stage);
+            $stmt->bindParam(':note', $note);
 
-		echo $stmt->execute();
+            $rslt = $stmt->execute();
+
+        } else {
+            $stmt = $connexion->prepare("DELETE FROM `stagestx`.`votes` WHERE `votes`.`login` = :login AND `votes`.`stage` = :stage");
+            $stmt->bindParam(':login', $login);
+            $stmt->bindParam(':stage', $stage);
+
+            $rslt = $stmt->execute();
+        }
+
+    	
+		echo $rslt;
 
     }
 ?>

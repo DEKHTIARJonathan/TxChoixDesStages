@@ -126,7 +126,7 @@
 	function fillInStage($connexion, $sheet, $startColumn)
 	{
 		
-		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages`';
+		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by numSerie';
 
 		$i = 2;
 
@@ -161,20 +161,19 @@
 
 			fillDemandeurStage($connexion, $sheet, $id, $i);
 		    
-			$i++;
-			
+			$i++;	
 			
 		}
 	}
 
 	function fillDemandeurStage($connexion, $sheet, $id, $i){
-		$sth = $connexion->prepare('SELECT concat(`firstName`, " ", `lastName`) as name FROM `votes`, `users` WHERE `votes`.`login` = `users`.`casLogin` and `votes`.`stage` = :stage order by voteDate');
+		$sth = $connexion->prepare('SELECT concat(`firstName`, " ", `lastName`) as name, note FROM `votes`, `users` WHERE `votes`.`login` = `users`.`casLogin` and `votes`.`stage` = :stage order by voteDate');
 		$sth->bindParam(':stage', $id);
 		$sth-> execute();
 
 		$j = 0;
 	    while ($user = $sth->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-			$sheet->setCellValue(num_to_letter(5+$j, true).$i, $user['name']);
+			$sheet->setCellValue(num_to_letter(5+$j, true).$i, $user['name']."(".$user['note'].")");
 			$j++;
 	    }
 	}

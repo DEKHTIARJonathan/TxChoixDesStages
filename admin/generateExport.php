@@ -2,6 +2,8 @@
 	header("Content-Type: text/html; charset=UTF-8"); 
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 	date_default_timezone_set("Europe/Paris");
+	//ini_set("memory_limit","512M");
+	//ini_set('max_execution_time', 60);
 
 	include $root.'/Classes/PHPExcel.php';
 	include	$root.'/Classes/PHPExcel/Writer/Excel2007.php';
@@ -27,14 +29,8 @@
 	/* Remplissage des données par sujet de stage */
 	fillInStage($connexion, $sheet, $startColumn_stageDesc);
 
-
-
-	/* TEST */
-	cellColor($sheet, 'B5', random_color());
-    cellColor($sheet, 'G5', random_color());
-    cellColor($sheet, 'A7:I7', random_color());
-    cellColor($sheet, 'A17:I17', random_color());
-    cellColor($sheet, 'A30:Z30', random_color());
+	/* Coloring same Company */
+    coloringSimilar ($sheet, $startColumn_stageDesc);
 
 	/* Sauvegarde du Workbook */
 	$writer = new PHPExcel_Writer_Excel2007($workbook);
@@ -42,11 +38,7 @@
 	$writer->save($records);
 
 	/* Output affichée par le script Ajax */
-
 	echo 'Le fichier Excel peut-être téléchargé en cliquant sur ce lien : <a href="files/export.xlsx"><b>Télécharger</b></a>';
-
-
-   
 
 
 /* ========================== FUNCTIONS =========================== */
@@ -138,7 +130,7 @@
 	function fillInStage($connexion, $sheet, $startColumn)
 	{
 		
-		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by numSerie';
+		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by ville, nomEntreprise';
 
 		$i = 2;
 
@@ -195,10 +187,67 @@
 	}
 
 	function random_color() {
-	    return strtoupper(random_color_part() . random_color_part() . random_color_part());
+
+		do {
+		    $red = random_color_part();
+			$green = random_color_part();
+			$blue = random_color_part();
+
+			$luminance = hexdec($red)/255 * 0.2126 + hexdec($green)/255 * 0.7152 + hexdec($blue)/255 * 0.0722;
+		} while ($luminance < 0.6);
+
+	    return strtoupper($red . $green . $blue);
 	}
 
-	function cellColor($sheet, $cells, $color){
+	function cellColor($sheet, $colStart, $colEnd, $line, $color){
+		$cells = num_to_letter($colStart, true).$line.":".num_to_letter($colEnd, true).$line;
+
         $sheet->getStyle($cells)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => $color)));
+    }
+
+    function isCellNotColored($sheet, $col, $line){
+    	
+    	$cell = num_to_letter($col, true).$line;
+    	
+    	if (($color = $sheet->getStyle($cell)->getFill()->getStartColor()->getRGB()) == "FFFFFF")
+    	{
+    		//echo "White = line = $line & color = $color <br>";
+    		return true;
+    	}
+    	else
+    		//echo "Colored = line = $line & color = $color <br>";
+    		return false;
+    }
+
+    function coloringSimilar ($sheet, $startColumn_stageDesc){
+    	$i = 2;
+    	
+    	while (($val_i = getStageKey($sheet, $startColumn_stageDesc, $i)) != " ") {
+    			
+			if (isCellNotColored($sheet, $startColumn_stageDesc, $i)){
+    			$color = random_color();
+    			$matched = false;
+    			$j = $i+1;
+    			
+    			while (($val_j = getStageKey($sheet, $startColumn_stageDesc, $j)) != " "){
+    				if ($val_i == $val_j){
+    					cellColor($sheet, $startColumn_stageDesc, $startColumn_stageDesc+3, $j, $color);
+    					$matched = true;
+    				}
+    				$j++;
+    			}
+
+    			if ($matched)
+    				cellColor($sheet, $startColumn_stageDesc, $startColumn_stageDesc+3, $i, $color);
+    		}
+    		$i++;
+		}	
+    }
+
+    function getStageKey($sheet, $startColumn_stageDesc, $line)
+    {
+    	$returnValue1 = $sheet->getCell(num_to_letter($startColumn_stageDesc, true).$line)->getValue();
+    	$returnValue2 = $sheet->getCell(num_to_letter($startColumn_stageDesc+1, true).$line)->getValue();
+    	return $returnValue1." ".$returnValue2;
     }
 ?>

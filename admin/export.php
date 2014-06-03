@@ -60,7 +60,7 @@
                     
                     <button class="btn btn-danger" id="exporterDB" style="margin-top:40px;width: 250px;">Exporter au format Excel</button>
 
-                    <img id="loadingGIF" src="../images/loading.gif" class="hide">
+                    <img id="loadingGIF" src="../images/loading.gif" class="hide" style="margin-top:20px">
                     <div class="hide" id="resultat" style="margin-top:20px"></div>
 
                 </div>

@@ -34,6 +34,7 @@
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Import des stages</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/export.php">Export des votes</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Management des droits d'accès</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/dashboard.php">DashBoard</a></li>
 		            	</ul>
 		            </li>
 			

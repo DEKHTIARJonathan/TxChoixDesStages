@@ -41,24 +41,19 @@
             .modal-wide .modal-body {
                 overflow-y: auto;
             }
-/*
-            .table-scroll td {
-                padding: 3px 10px;
+
+            .modal.modal-mid .modal-dialog {
+                width: 60%;
             }
 
-            .table-scroll thead > tr {
-                position:relative;
-                display:block;
+            .modal-mid .modal-body {
+                overflow-y: auto;
             }
-*/
 
         </style>
 
                     
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="../raty/jquery.raty.min.js"></script>
-
-
                 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -75,15 +70,37 @@
         
         <div class="container">
 
-            <div class="jumbotron" style="padding-top:15px; overflow:hidden; height:150px">
+            <div class="jumbotron" style="padding-top:15px; overflow:hidden; height:120px">
 
-                <h1 style="font-size:300%;">Réalisation des voeux.</h1>
-                <p style="margin-top:-20px">
-                    <font size='3' >
-                        <br>Veuillez réaliser vos voeux en vue de l'attribution futur des suiveurs de stage TN09 & TN10.
-                    </font>
-                </p>
+                <h1 style="font-size:300%;">Dashboard des voeux.</h1>
 
+            </div>
+
+            <div class="alert alert-danger">
+                <b>Informations sur l'état des votes :<br><br></b>
+                    <ul>
+                        <?php 
+                            $sql = 'Select * from (Select count(*) as nbrOccurences, T1.nbrDemande from (SELECT count(*) as nbrDemande FROM `votes` group by `stage`) as T1 group by T1.nbrDemande 
+                                    UNION ALL
+                                    Select (select count(*) from stages) - (select count(distinct `stage`) from votes), "0") as T2 order by T2.nbrDemande';
+
+                            foreach  ($connexion->query($sql) as $row) {
+                                echo "<li>Nombre de Stage(s) avec <b>".$row['nbrDemande']." vote(s) :</b> ".$row['nbrOccurences']."</li>";
+                            }
+                        ?>
+                    </ul>
+                    <br>
+                    <ul>
+                        <?php 
+                            $sql = 'select uv, count(*) as nombre from stages group by `uv` UNION ALL select "total", count(*) from stages';
+
+                            foreach  ($connexion->query($sql) as $row) {
+                                echo "<li>Nombre de stages <b>".$row['uv']." :</b> ".$row['nombre']."</li>";
+                            }
+                        ?>
+                    </ul>
+
+                    
             </div>
             
             <div align="center">
@@ -96,7 +113,7 @@
                       <th>Titre du Stage</th>
                       <th>Nom de l'Entreprise</th>
                       <th>Description Complète</th>
-                      <th>Note</th>
+                      <th>Nombre de Demandes</th>
                     </tr>
                   </thead>
                   <tbody data-bind="foreach: MediaGroups">
@@ -104,20 +121,16 @@
               
                     <?php
     
-                        $sth = $connexion->prepare('SELECT idStage as id, numSerie, titreStage as titre, nomEntreprise as entreprise, uv, pays, ville, departement as dpt , coalesce(tVotes.note, "0") as note  FROM stages as tStages LEFT OUTER JOIN ( SELECT note, stage, login FROM votes) as tVotes ON tVotes.`stage`= tStages.idStage and tVotes.login = :login ORDER BY note DESC, numSerie');
-                        $sth->bindParam(':login', $login);
+                        $sql =  'SELECT idStage as id, numSerie, titreStage as titre, nomEntreprise as entreprise, uv, pays, ville, departement as dpt, coalesce(tVotes.nbrDemandes, "0") as nbrDemandes FROM stages as tStages LEFT OUTER JOIN (SELECT count(*) as nbrDemandes, `stage` FROM votes group by stage) as tVotes ON tVotes.stage = tStages.idStage ORDER BY nbrDemandes, numSerie';
 
-                        $login = $_SESSION['login'];
                         $stages = array();
                         
-                        $sth->execute();
-                        
-                        while ($row = $sth->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-                        
+                        foreach  ($connexion->query($sql) as $row) {
 
                             $id = $row['id'];
                             
-                            $note = $row['note'];
+                            
+                            $nbrDemande = $row['nbrDemandes'];
 
                             $pays = $row['pays'];
                             $numSerie = $row['numSerie'];
@@ -133,15 +146,23 @@
                             else
                                 $city = $pays; 
 
+                            $class = true;
+                            if ($nbrDemande == 0)
+                                $class = "danger";
+                            elseif ($nbrDemande < 2)
+                                $class = "warning";
+                            else
+                                $class = "success";
+
                             echo 
-                                    '<tr>
+                                    '<tr class="'.$class.'">
                                         <td style="vertical-align:middle;">'.$numSerie.'</td>
                                         <td style="vertical-align:middle;">'.$uv.'</td>
                                         <td style="vertical-align:middle;">'.$city.'</td>
                                         <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
                                         <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
                                         <td style="vertical-align:middle;"><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
-                                        <td style="vertical-align:middle;"><div id="score'.$id.'" data-score="'.$note.'"></div></td>
+                                        <td style="vertical-align:middle;">'.$nbrDemande.' : <a data-toggle="modal" id="link2'.$id.'" href="#stageDemandeurs">Demandeurs</a></div></td>
                                     </tr>';
                             $stages[] = $id;
                         }
@@ -151,8 +172,8 @@
                 </table>
             </div>
 
-            <div class="modal modal-wide fade" id="stageFullDesc">
-            </div>
+            <div class="modal modal-wide fade" id="stageFullDesc"></div>
+            <div class="modal modal-mid fade" id="stageDemandeurs"></div>
 
             
             
@@ -165,47 +186,6 @@
         <script src="../scripts/jquery.easing.1.3.js"></script>
 
         <script type="text/javascript">
-        
-            $(function() {
-              $.fn.raty.defaults.path = '../raty/img';
-
-             
-            <?php
-                foreach ($stages as $id){
-
-                echo '$("#score'.$id.'").raty({
-                    cancel   : true,
-                    cancelOff: "cancel-off.png",
-                    cancelOn : "cancel-on.png",
-                    score: function() {
-                        return $(this).attr("data-score");
-                    },
-                    click: function(score, evt) {
-                        if (score == null) {
-                            score = 0;
-                        }
-                        $.ajax(
-                        {
-                            url : "vote.php",
-                            type : "GET",
-                            data: { stageID: $(this).attr("id").substring(5), note: score },
-                            dataType : "html",
-
-                            success: function(data){
-                                if (data != 1) {
-                                    alert("Attention, cette action n\'a pas pu être enregistrée.");
-                                }
-                            }
-                            
-                        });
-                    },
-                });
-                ';
-                }  
-            ?>
-              
-
-            });
 
             <?php
                 foreach ($stages as $id){
@@ -221,6 +201,27 @@
 
                             success: function(data){
                                 $("#stageFullDesc").html(data);
+                            }
+                            
+                        });
+                    });';
+                }
+            ?>
+
+            <?php
+                foreach ($stages as $id){
+                    echo '$("#link2'.$id.'").click(function()
+                    {
+                        $("stageFullDesc").modal({show:true});
+                        $.ajax(
+                        {
+                            url : "stageDemandeurs.php",
+                            type : "GET",
+                            data: { stageID: $(this).attr("id").substring(5)},
+                            dataType : "html",
+
+                            success: function(data){
+                                $("#stageDemandeurs").html(data);
                             }
                             
                         });

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 02 Juin 2014 à 19:29
+-- Généré le :  Mar 03 Juin 2014 à 00:06
 -- Version du serveur :  5.6.17-1~dotdeb.1
--- Version de PHP :  5.4.27-1~dotdeb.1
+-- Version de PHP :  5.4.28-1~dotdeb.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `stages`
 --
--- Création :  Lun 02 Juin 2014 à 19:28
+-- Création :  Lun 02 Juin 2014 à 19:32
 --
 
 DROP TABLE IF EXISTS `stages`;
@@ -42,14 +42,14 @@ CREATE TABLE IF NOT EXISTS `stages` (
   `departement` tinyint(2) DEFAULT NULL,
   `uv` enum('TN09','TN10') NOT NULL,
   `descriptionComplete` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
 --
--- Création :  Lun 02 Juin 2014 à 18:55
+-- Création :  Lun 02 Juin 2014 à 19:32
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -65,22 +65,23 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Structure de la table `votes`
 --
--- Création :  Lun 02 Juin 2014 à 19:24
+-- Création :  Lun 02 Juin 2014 à 23:40
 --
 
 DROP TABLE IF EXISTS `votes`;
 CREATE TABLE IF NOT EXISTS `votes` (
   `login` varchar(255) NOT NULL,
   `stage` int(11) NOT NULL,
-  `note` tinyint(3) NOT NULL
+  `note` tinyint(3) NOT NULL,
+  `voteDate` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONS POUR LA TABLE `votes`:
---   `login`
---       `users` -> `casLogin`
 --   `stage`
 --       `stages` -> `idStage`
+--   `login`
+--       `users` -> `casLogin`
 --
 
 --
@@ -122,8 +123,8 @@ MODIFY `idStage` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 -- Contraintes pour la table `votes`
 --
 ALTER TABLE `votes`
-ADD CONSTRAINT `fk_user` FOREIGN KEY (`login`) REFERENCES `users` (`casLogin`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_stage` FOREIGN KEY (`stage`) REFERENCES `stages` (`idStage`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `fk_stage` FOREIGN KEY (`stage`) REFERENCES `stages` (`idStage`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `fk_user` FOREIGN KEY (`login`) REFERENCES `users` (`casLogin`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

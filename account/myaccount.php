@@ -133,7 +133,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-success">Submit Message</button>
+                                    <button type="submit" class="btn btn-success">Envoyer les Modifications</button>
                                 </div>
                             </form>
 

@@ -27,6 +27,15 @@
 	/* Remplissage des données par sujet de stage */
 	fillInStage($connexion, $sheet, $startColumn_stageDesc);
 
+
+
+	/* TEST */
+	cellColor($sheet, 'B5', random_color());
+    cellColor($sheet, 'G5', random_color());
+    cellColor($sheet, 'A7:I7', random_color());
+    cellColor($sheet, 'A17:I17', random_color());
+    cellColor($sheet, 'A30:Z30', random_color());
+
 	/* Sauvegarde du Workbook */
 	$writer = new PHPExcel_Writer_Excel2007($workbook);
 	$records = './files/export.xlsx';
@@ -35,6 +44,9 @@
 	/* Output affichée par le script Ajax */
 
 	echo 'Le fichier Excel peut-être téléchargé en cliquant sur ce lien : <a href="files/export.xlsx"><b>Télécharger</b></a>';
+
+
+   
 
 
 /* ========================== FUNCTIONS =========================== */
@@ -110,7 +122,7 @@
 		$sql = 'SELECT CONCAT( `firstName`, " ", `lastName`) as name FROM `users`, (SELECT distinct `login` FROM `votes`) as logs where `logs`.`login` = `users`.`casLogin`';
 		foreach  ($connexion->query($sql) as $row) {
 			$sheet->setCellValue('A'.$i, $row['name']);
-			$sheet->setCellValue('B'.$i, "=COUNTIF(E2:E".$lastLigne.", A".$i.")");
+			$sheet->setCellValue('B'.$i, '=COUNTIF(E2:E'.$lastLigne.', A'.$i.'&"*")');
 			$i++;
 		}	
 	}
@@ -177,4 +189,16 @@
 			$j++;
 	    }
 	}
+
+	function random_color_part() {
+	    return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+	}
+
+	function random_color() {
+	    return strtoupper(random_color_part() . random_color_part() . random_color_part());
+	}
+
+	function cellColor($sheet, $cells, $color){
+        $sheet->getStyle($cells)->getFill()->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => $color)));
+    }
 ?>

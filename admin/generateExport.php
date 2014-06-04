@@ -9,6 +9,8 @@
 	include	$root.'/Classes/PHPExcel/Writer/Excel2007.php';
 
     require_once $root.'/config.inc.php';
+    require_once $root.'/inc/checksession.php';
+    require_once $root.'/inc/checkassist.php';
     require_once $root.'/inc/dbconnect.php';
 
     /* Initialisation du Workbook */

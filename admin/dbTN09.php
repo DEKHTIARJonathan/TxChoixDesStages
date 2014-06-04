@@ -3,8 +3,10 @@
 	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
     require_once $root.'/config.inc.php';
     require_once $root.'/inc/checksession.php';
+    require_once $root.'/inc/checkassist.php';
 	require_once $root.'/inc/dbconnect.php';
 	require_once 'excel_reader2.php';
+	
 	error_reporting(E_ALL ^ E_NOTICE);
 
 	$typeStage = "TN09";

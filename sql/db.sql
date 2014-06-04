@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 03 Juin 2014 à 00:06
+-- Généré le :  Mar 03 Juin 2014 à 23:29
 -- Version du serveur :  5.6.17-1~dotdeb.1
 -- Version de PHP :  5.4.28-1~dotdeb.1
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `stages` (
 --
 -- Structure de la table `users`
 --
--- Création :  Lun 02 Juin 2014 à 19:32
+-- Création :  Mar 03 Juin 2014 à 23:21
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -57,7 +57,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `casLogin` char(8) NOT NULL,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `userRight` enum('utilisateur','assistant','administrateur') NOT NULL DEFAULT 'utilisateur'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

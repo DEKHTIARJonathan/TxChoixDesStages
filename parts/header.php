@@ -33,8 +33,8 @@
 		             	<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Import des stages</a></li>
 			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/export.php">Export des votes</a></li>
-			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/">Management des droits d'accès</a></li>
-			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/dashboard.php">DashBoard</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/dashboard.php">DashBoard des Votes</a></li>
+			                <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin/userManagement.php">Management des droits d'accès</a></li>
 		            	</ul>
 		            </li>
 			

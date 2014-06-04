@@ -6,6 +6,8 @@
     require_once $root.'/inc/checksession.php';
     require_once $root.'/inc/checkadmin.php';
     require_once $root.'/inc/dbconnect.php';
+
+    $myLogin = $_SESSION["auth"]["login_utc"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,11 +100,15 @@
                         while ($row = $sth->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
 
                             $login = $row['login'];
-                            $name = $row['nom'];
-                            $email = $row['email'];
-                            $right = $row['right'];
+                            
 
-                            echo 
+                            if ($myLogin != $login){  // Prevent to modify yourself.
+
+                                $name = $row['nom'];
+                                $email = $row['email'];
+                                $right = $row['right'];
+
+                                echo 
                                     '<tr>
                                         <td style="vertical-align:middle;">'.$login.'</td>
                                         <td style="vertical-align:middle;">'.$name.'</td>
@@ -128,7 +134,11 @@
                                                 }
                                             echo '</select></td>
                                     </tr>';
-                            $i_max++;
+                                $i_max++;
+                            }
+
+                            
+                            
                         }
                         
                     ?>
@@ -155,9 +165,11 @@
                             dataType : "html",
 
                             success: function(data){
-                                if(!data)
+                                var output = jQuery.parseJSON(data);
+                                    
+                                if (output.success != 1) // Error
                                 {
-                                    alert("Problème lors de la mise à jour du droit d\'accès");
+                                    alert(output.msg);
                                 }
                             }
                             

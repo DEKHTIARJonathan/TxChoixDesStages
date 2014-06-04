@@ -12,17 +12,51 @@
     $login = $_GET['login'];
     $right = $_GET['right'];
 
-    $msg = true;
+    $myLogin = $_SESSION["auth"]["login_utc"];
 
     // initialisation pour les var. globales.
+    $rslt = true;
+    $msg = true;
 
-    $stmt = $connexion->prepare("UPDATE `stagestx`.`users` SET `userRight` = :right WHERE `users`.`casLogin` = :login");
-    $stmt->bindParam(':login', $login);
-    $stmt->bindParam(':right', $right);
+    if($myLogin == $login){
+        $rslt = 0;
+        $msg = "Il n'est pas possible de modifier votre propre compte";
+    }
+    else{
 
-    if($stmt->execute())
-        echo true;
-    else
-        echo false;
+        $stmt = $connexion->prepare("UPDATE `stagestx`.`users` SET `userRight` = :right WHERE `users`.`casLogin` = :login");
+        $stmt->bindParam(':login', $login);
+        $stmt->bindParam(':right', $right);
+
+        if($stmt->execute()){
+            $rslt = 1;
+            $msg = "Compte modifié avec succès";
+        }
+        else{
+            $rslt = 0;
+            $msg = "Problème lors de la modification, veuillez réessayer";
+        }
+    }
+
+    $arr = array('success' => $rslt, 'msg' => $msg);
+    echo json_encode($arr);
+
+    function isAdmin($connexion, $login){
+        $stmt = $connexion->prepare('SELECT `userRight` FROM `users` WHERE `casLogin` = :login');
+        $stmt->bindParam(':login', $login);
+        $stmt-> execute();
+        $rslt = $stmt -> fetch();
+
+        return $rslt['userRight'] == "administrateur";
+    }
+
+    function isLastAdmin($connexion){
+        
+        $stmt = $connexion->prepare('SELECT count(*) as nbrAdmin FROM `users` WHERE `userRight` = "administrateur"');
+        $stmt-> execute();
+        $rslt = $stmt -> fetch();
+
+        return $rslt['nbrAdmin'] <= 1;
+    }
 
 ?>  

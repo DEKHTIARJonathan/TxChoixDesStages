@@ -12,19 +12,46 @@
     $rslt = true;
     $msg = true;
 
-    $stmt = $connexion->prepare("DELETE FROM `stagestx`.`users` WHERE `users`.`casLogin` = :login");
-    $stmt->bindParam(':login', $login);
-    
-    if($stmt->execute()){
-        $rslt = 1;
-        $msg = "Compte supprimé avec succès";
+
+    if(isAdmin($connexion, $login) && isLastAdmin($connexion)){
+        $rslt = 0;
+        $msg = "Vous êtes le dernier administrateur, vous ne pouvez pas supprimer votre compte";
     }
     else{
-        $rslt = 0;
-        $msg = "Problème lors de la suppression";
+        $stmt = $connexion->prepare("DELETE FROM `stagestx`.`users` WHERE `users`.`casLogin` = :login");
+        $stmt->bindParam(':login', $login);
+        
+        if($stmt->execute()){
+            $rslt = 1;
+            $msg = "Compte supprimé avec succès";
+        }
+        else{
+            $rslt = 0;
+            $msg = "Problème lors de la suppression";
+        }
     }
+
+    
 
     $arr = array('success' => $rslt, 'msg' => $msg);
     echo json_encode($arr);
+
+    function isAdmin($connexion, $login){
+        $stmt = $connexion->prepare('SELECT `userRight` FROM `users` WHERE `casLogin` = :login');
+        $stmt->bindParam(':login', $login);
+        $stmt-> execute();
+        $rslt = $stmt -> fetch();
+
+        return $rslt['userRight'] == "administrateur";
+    }
+
+    function isLastAdmin($connexion){
+        
+        $stmt = $connexion->prepare('SELECT count(*) as nbrAdmin FROM `users` WHERE `userRight` = "administrateur"');
+        $stmt-> execute();
+        $rslt = $stmt -> fetch();
+
+        return $rslt['nbrAdmin'] <= 1;
+    }
 
 ?>  

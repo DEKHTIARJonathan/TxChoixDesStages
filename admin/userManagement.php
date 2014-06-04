@@ -82,6 +82,7 @@
                       <th>Login UTC</th>
                       <th>Nom</th>
                       <th>Email</th>
+                      <th>Nombre de Demandes</th>
                       <th>Droit d'accès</th>
                     </tr>
                   </thead>
@@ -90,7 +91,7 @@
               
                     <?php
     
-                        $sth = $connexion->prepare('SELECT `casLogin` as login, CONCAT(`firstName`, " ", `lastName`) as nom, `email`, `userRight` as `right` FROM `users` ORDER BY CASE `right` WHEN "administrateur" THEN 1 WHEN "assistant" THEN 2 ELSE 3 END');
+                        $sth = $connexion->prepare('SELECT `casLogin` as login, CONCAT(`firstName`, " ", `lastName`) as nom, `email`, `userRight` as `right`, coalesce(tDemandes.nbrDemandes, "0") as nbrDemandes FROM `users` LEFT OUTER JOIN (SELECT count(*) as nbrDemandes, `login` FROM `votes` Group By `login`) as tDemandes ON tDemandes.`login` = `users`.`casLogin` ORDER BY CASE `right` WHEN "administrateur" THEN 1 WHEN "assistant" THEN 2 ELSE 3 END');
   
                         $users = array();
                         
@@ -107,12 +108,14 @@
                                 $name = $row['nom'];
                                 $email = $row['email'];
                                 $right = $row['right'];
+                                $nbrDemandes = $row['nbrDemandes'];
 
                                 echo 
                                     '<tr>
                                         <td style="vertical-align:middle;">'.$login.'</td>
                                         <td style="vertical-align:middle;">'.$name.'</td>
                                         <td style="vertical-align:middle;"><a href="mailto:'.$email.'">'.$email.'</a></td>
+                                        <td style="vertical-align:middle;">'.$nbrDemandes.' demande(s)</td>
                                         <td style="vertical-align:middle;">
                                             <select id="select'.$i_max.'" class="form-control" data-login="'.$login.'">';
                                                 if ($right == "administrateur"){

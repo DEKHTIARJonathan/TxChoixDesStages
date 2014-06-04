@@ -31,8 +31,6 @@
         }
     }
 
-    
-
     $arr = array('success' => $rslt, 'msg' => $msg);
     echo json_encode($arr);
 

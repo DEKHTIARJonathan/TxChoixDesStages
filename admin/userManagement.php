@@ -65,7 +65,7 @@
                     <ul>
                         <li><b>Utilisateur :</b> Droit par défaut. Il peut modifier son compte, n'a pas accès à toute la partie d'administration.</li>
                         <li><b>Assistant :</b> En plus des droits de l'utilisateur classique, possibilité de tout effectuer en administration sauf le management des droits d'accès</li>
-                        <li><b>Assistant :</b> Ce dernier a tous les droits, seul droit d'accès permettant de  modifier les droits d'accès.</li>
+                        <li><b>Administrateur :</b> Ce dernier a tous les droits, seul droit d'accès permettant de  modifier les droits d'accès.</li>
                     </ul>
                     <br>
                     Chacun des droits peut être donné à plusieurs personnes. (Exemple : il peut y avoir deux administrateurs).<br>

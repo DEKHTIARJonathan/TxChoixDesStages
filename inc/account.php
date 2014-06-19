@@ -31,7 +31,7 @@
 			$lastname = strtoupper($_GET['lastname']);
 			$firstname = ucfirst(strtolower($_GET['firstname'])); 
 
-			$stmt = $connexion->prepare("INSERT INTO `stagestx`.`users` (`casLogin`, `firstName`, `lastName`, `email`) VALUES (:login, :firstname, :lastname, :email) ON DUPLICATE KEY UPDATE  `firstName` = :firstname, `lastName` = :lastname, `email`= :email");
+			$stmt = $connexion->prepare("INSERT INTO `users` (`casLogin`, `firstName`, `lastName`, `email`) VALUES (:login, :firstname, :lastname, :email) ON DUPLICATE KEY UPDATE  `firstName` = :firstname, `lastName` = :lastname, `email`= :email");
 			$stmt->bindParam(':login', $login);
 			$stmt->bindParam(':firstname', $firstname);
 			$stmt->bindParam(':lastname', $lastname);

@@ -24,7 +24,7 @@
     }
     else{
 
-        $stmt = $connexion->prepare("UPDATE `stagestx`.`users` SET `userRight` = :right WHERE `users`.`casLogin` = :login");
+        $stmt = $connexion->prepare("UPDATE `users` SET `userRight` = :right WHERE `users`.`casLogin` = :login");
         $stmt->bindParam(':login', $login);
         $stmt->bindParam(':right', $right);
 

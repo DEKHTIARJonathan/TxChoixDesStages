@@ -16,15 +16,15 @@
 
 		$connexion->beginTransaction(); 
 
-		$connexion->exec('DELETE FROM `stagestx`.`stages`');
+		$connexion->exec('DELETE FROM `stages`');
 		if($connexion->errorCode() != 0) {
     		throw new Exception('Erreur dans le nettoyage des stages');
     	}
-		$connexion->exec('ALTER TABLE `stagestx`.`stages` AUTO_INCREMENT = 1');
+		$connexion->exec('ALTER TABLE `stages` AUTO_INCREMENT = 1');
 		if($connexion->errorCode() != 0) {
     		throw new Exception('Erreur lors de la réinitialisation du compteur de la table "stages"');
     	}
-		$connexion->exec('ALTER TABLE `stagestx`.`votes` AUTO_INCREMENT = 1');
+		$connexion->exec('ALTER TABLE `votes` AUTO_INCREMENT = 1');
 		if($connexion->errorCode() != 0) {
     		throw new Exception('Erreur lors de la réinitialisation du compteur de la table "votes"');
     	}

@@ -18,7 +18,7 @@
         $msg = "Vous êtes le dernier administrateur, vous ne pouvez pas supprimer votre compte";
     }
     else{
-        $stmt = $connexion->prepare("DELETE FROM `stagestx`.`users` WHERE `users`.`casLogin` = :login");
+        $stmt = $connexion->prepare("DELETE FROM users` WHERE `users`.`casLogin` = :login");
         $stmt->bindParam(':login', $login);
         
         if($stmt->execute()){

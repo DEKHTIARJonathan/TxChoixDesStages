@@ -28,7 +28,7 @@
             $rslt = $stmt->execute();
 
         } else {
-            $stmt = $connexion->prepare("DELETE FROM `stagestx`.`votes` WHERE `votes`.`login` = :login AND `votes`.`stage` = :stage");
+            $stmt = $connexion->prepare("DELETE FROM `votes` WHERE `votes`.`login` = :login AND `votes`.`stage` = :stage");
             $stmt->bindParam(':login', $login);
             $stmt->bindParam(':stage', $stage);
 

@@ -3,7 +3,7 @@
     require_once $root.'/config.inc.php';
     
     try {
-        $connexion = new PDO('mysql:host='.$_CONFIG['sql_host'].';dbname='.$_CONFIG['sql_db'], $_CONFIG['sql_user'], $_CONFIG['sql_pass'],  array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));   
+        $connexion = new PDO('mysql:host='.$_CONFIG['sql_host'].';port='.$_CONFIG['sql_port'].';dbname='.$_CONFIG['sql_db'], $_CONFIG['sql_user'], $_CONFIG['sql_pass'],  array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));   
         
     }catch ( Exception $e ) 
     {

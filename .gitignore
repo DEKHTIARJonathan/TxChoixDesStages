@@ -6,3 +6,4 @@
 contact/mail_conf.inc.php
 /admin/files/*
 admin/files/*
+!admin/files/readme

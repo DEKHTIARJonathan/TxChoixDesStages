@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 03 Juin 2014 à 23:29
+-- Généré le :  Jeu 19 Juin 2014 à 23:04
 -- Version du serveur :  5.6.17-1~dotdeb.1
 -- Version de PHP :  5.4.28-1~dotdeb.1
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `stages`
 --
--- Création :  Lun 02 Juin 2014 à 19:32
+-- Création :  Jeu 19 Juin 2014 à 22:25
 --
 
 DROP TABLE IF EXISTS `stages`;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `stages` (
   `departement` tinyint(2) DEFAULT NULL,
   `uv` enum('TN09','TN10') NOT NULL,
   `descriptionComplete` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Structure de la table `votes`
 --
--- Création :  Lun 02 Juin 2014 à 23:40
+-- Création :  Jeu 19 Juin 2014 à 22:25
 --
 
 DROP TABLE IF EXISTS `votes`;
@@ -126,6 +126,7 @@ MODIFY `idStage` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `votes`
 ADD CONSTRAINT `fk_stage` FOREIGN KEY (`stage`) REFERENCES `stages` (`idStage`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `fk_user` FOREIGN KEY (`login`) REFERENCES `users` (`casLogin`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

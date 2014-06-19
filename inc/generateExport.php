@@ -34,7 +34,7 @@
 
 	/* Sauvegarde du Workbook */
 	$writer = new PHPExcel_Writer_Excel2007($workbook);
-	$records = './files/export.xlsx';
+	$records = $root.'/admin/files/export.xlsx';
 	$writer->save($records);
 
 	/* Output affichée par le script Ajax */
@@ -130,7 +130,7 @@
 	function fillInStage($connexion, $sheet, $startColumn)
 	{
 		
-		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by uv, ville, nomEntreprise';
+		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by uv, numSerie';
 
 		$i = 2;
 

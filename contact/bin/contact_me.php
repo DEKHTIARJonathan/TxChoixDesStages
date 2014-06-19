@@ -1,4 +1,16 @@
 <?php
+	header("Content-Type: text/html; charset=UTF-8"); 
+	$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+    require_once $root.'/config.inc.php';
+    require_once $root.'/inc/dbconnect.php';
+
+    $stmt = $connexion->prepare('SELECT `email` FROM `users` WHERE `userRight` = "administrateur"');
+
+    $stmt-> execute();
+	$recipients = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+	$email_to = implode(', ', $recipients);
+
 // check if fields passed are empty
 if(empty($_POST['name'])  		||
    empty($_POST['email']) 		||
@@ -14,13 +26,15 @@ $email_address = $_POST['email'];
 $message = $_POST['message'];
 	
 // create email body and send it	
-$to = 'me@myprogrammingblog.com'; // put your email
+
 $email_subject = "Contact form submitted by:  $name";
-$email_body = "You have received a new message. \n\n".
-				  " Here are the details:\n \nName: $name \n ".
-				  "Email: $email_address\n Message \n $message";
-$headers = "From: contacts@myprogrammingblog.com\n";
+$email_body = "Vous avez reçu un message d'un suiveur depuis la plateforme de choix des stages.\n\n".
+				"Here are the details:\n\n".
+				"Name: $name \n ".
+				"Email: $email_address\n\n".
+				"Message: \n$message";
+$headers = "From: noreply@utc.fr\n";
 $headers .= "Reply-To: $email_address";	
-mail($to,$email_subject,$email_body,$headers);
+mail($email_to,$email_subject,$email_body,$headers);
 return true;			
 ?>

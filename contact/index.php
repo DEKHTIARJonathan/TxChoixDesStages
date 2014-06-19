@@ -67,16 +67,16 @@
                     <form name="sentMessage"  id="contactForm"  novalidate>
                         <table class="col-sm-12">
                             <tr>
-                                <td>
+                                <td class="col-sm-6">
                                     <div class="control-group">
-                                        <div class="controls">
+                                        <div class="controls"  style="height:85px;">
                                             <input type="text" class="form-control" placeholder="Votre Nom" id="name" required data-validation-required-message="Veuillez entrer votre nom" />
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="col-sm-6">
                                     <div class="control-group">
-                                        <div class="controls">
+                                        <div class="controls" style="height:85px;">
                                             <input type="email" class="form-control" placeholder="Votre Email" id="email" require data-validation-required-message="Veuillez entrer votre email" />
                                         </div>
                                     </div>
@@ -84,13 +84,14 @@
                             </tr>
                         </table>  
 
-                        <div class="control-group">
-                            <div class="controls">
+                        <div class="control-group col-sm-12">
+                            <div class="controls" style="height:250px;">
                                 <textarea rows="10" cols="100" class="form-control" placeholder="Votre Message" id="message" required data-validation-required-message="Veuillez entrer votre message" minlength="5" data-validation-minlength-message="Min 5 characters" maxlength="999" style="resize:none"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-primary pull-right">Send</button><br />
                         </div>        
-                        <div id="success"> </div> <!-- For success/fail messages -->
-                        <button type="submit" class="btn btn-primary pull-right">Send</button><br />
+                        <div id="success" class="col-sm-12" style="margin-top:25px;"> </div> <!-- For success/fail messages -->
+                        
                     </form>
                 </div>
             </div>

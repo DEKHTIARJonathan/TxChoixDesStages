@@ -46,14 +46,11 @@
                     $("#loadingGIF").attr('class', 'show'); 
                     $("#resultatUpload").attr('class', 'hide'); 
                 });
-                $(document).ajaxComplete(function(){ 
-                    $("#loadingGIF").attr('class', 'hide'); 
-                });
 
                 $.ajaxFileUploadTN09
                 (
                     {
-                        url:'doajaxfileuploadTN09.php',
+                        url:'/inc/doajaxfileuploadTN09.php',
                         secureuri:false,
                         fileElementId:'excelInputTN09',
                         dataType: 'json',
@@ -62,6 +59,7 @@
                         {
                             if(typeof(data.error) != 'undefined')
                             {
+                                $("#loadingGIF").attr('class', 'hide'); 
                                 if(data.error != '')
                                 {   
                                     $("#resultatUpload").attr('class', 'alert alert-warning show');
@@ -98,13 +96,13 @@
                     $("#resultatUpload").attr('class', 'hide'); 
                 });
                 $(document).ajaxComplete(function(){ 
-                    $("#loadingGIF").attr('class', 'hide'); 
+                    
                 });
 
                 $.ajaxFileUploadTN10
                 (
                     {
-                        url:'doajaxfileuploadTN10.php',
+                        url:'/inc/doajaxfileuploadTN10.php',
                         secureuri:false,
                         fileElementId:'excelInputTN10',
                         dataType: 'json',
@@ -113,6 +111,7 @@
                         {
                             if(typeof(data.error) != 'undefined')
                             {
+                                $("#loadingGIF").attr('class', 'hide'); 
                                 if(data.error != '')
                                 {   
                                     $("#resultatUpload").attr('class', 'alert alert-warning show');
@@ -124,6 +123,7 @@
                                     $("#resultatUpload").html(data.msg);
                                 }
                             }
+                            document.getElementsByName('fileName')[0].innerHTML = "";
                             document.getElementsByName('fileName')[1].innerHTML = "";
 
                         },
@@ -224,14 +224,11 @@
 
                 $.ajax(
                 {
-                    url : "clearDB.php",
+                    url : "/inc/clearDB.php",
                     type : "GET",
                     dataType : "json",
 
-                    success: function(data){
-                        //$("#resultatUpload").attr('class', 'alert alert-success show');
-                        //$("#resultatUpload").html(data);
-                        
+                    success: function(data){                        
 
                         if(typeof(data.error) != 'undefined')
                         {

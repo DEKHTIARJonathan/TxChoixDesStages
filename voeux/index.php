@@ -182,7 +182,7 @@
                         }
                         $.ajax(
                         {
-                            url : "vote.php",
+                            url : "/inc/vote.php",
                             type : "GET",
                             data: { stageID: $(this).attr("data-stage"), note: score },
                             dataType : "html",
@@ -203,7 +203,7 @@
                 $("stageFullDesc").modal({show:true});
                 $.ajax(
                 {
-                    url : "stageDesc.php",
+                    url : "/inc/stageDesc.php",
                     type : "GET",
                     data: { stageID: $(this).attr("data-stage")},
                     dataType : "html",

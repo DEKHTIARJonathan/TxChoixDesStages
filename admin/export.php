@@ -86,7 +86,7 @@
 
                 $.ajax(
                 {
-                    url : "generateExport.php",
+                    url : "/inc/generateExport.php",
                     type : "GET",
                     dataType : "html",
 

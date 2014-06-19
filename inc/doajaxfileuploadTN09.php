@@ -63,7 +63,7 @@
 				move_uploaded_file($_FILES[$fileElementName]['tmp_name'], $chemin_destination.'importTN09.'.$ext);
 			}
 
-			include 'dbTN09.php';
+			include $root.'/inc/dbTN09.php';
 
 	}	
 

@@ -11,7 +11,7 @@
 
 	$typeStage = "TN09";
 	
-	$data = new Spreadsheet_Excel_Reader("files/importTN10.xls",true,"ISO-8859-1");
+	$data = new Spreadsheet_Excel_Reader($root."/admin/files/importTN09.xls",true,"ISO-8859-1");
 
 	$numrow = $data->rowcount($sheet_index=0);
 	

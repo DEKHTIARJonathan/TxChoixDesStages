@@ -2,11 +2,9 @@
 	header("Content-Type: text/html; charset=UTF-8"); 
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 	date_default_timezone_set("Europe/Paris");
-	//ini_set("memory_limit","512M");
-	//ini_set('max_execution_time', 60);
 
-	include $root.'/Classes/PHPExcel.php';
-	include	$root.'/Classes/PHPExcel/Writer/Excel2007.php';
+	include $root.'/class/PHPExcel.php';
+	include	$root.'/class/PHPExcel/Writer/Excel2007.php';
 
     require_once $root.'/config.inc.php';
     require_once $root.'/inc/checksession.php';
@@ -132,7 +130,7 @@
 	function fillInStage($connexion, $sheet, $startColumn)
 	{
 		
-		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by ville, nomEntreprise';
+		$sql = 'SELECT `idStage` as id, `numSerie`, ville, departement as dpt, `nomEtudiant` as etudiant, `nomEntreprise` as entreprise, `uv`, pays FROM `stages` order by uv, ville, nomEntreprise';
 
 		$i = 2;
 

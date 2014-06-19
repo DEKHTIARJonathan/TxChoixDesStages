@@ -192,7 +192,7 @@
                 $("stageFullDesc").modal({show:true});
                 $.ajax(
                 {
-                    url : "stageDesc.php",
+                    url : "/inc/stageDesc.php",
                     type : "GET",
                     data: { stageID: $(this).attr("data-stage")},
                     dataType : "html",
@@ -209,7 +209,7 @@
                 $("stageFullDesc").modal({show:true});
                 $.ajax(
                 {
-                    url : "stageDemandeurs.php",
+                    url : "/inc/stageDemandeurs.php",
                     type : "GET",
                     data: { stageID: $(this).attr("data-stage")},
                     dataType : "html",

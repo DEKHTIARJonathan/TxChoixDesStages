@@ -117,7 +117,7 @@
                                         <td style="vertical-align:middle;"><a href="mailto:'.$email.'">'.$email.'</a></td>
                                         <td style="vertical-align:middle;">'.$nbrDemandes.' demande(s)</td>
                                         <td style="vertical-align:middle;">
-                                            <select id="select'.$i_max.'" class="form-control" data-login="'.$login.'">';
+                                            <select id="select'.$i_max.'" class="form-control selector" data-login="'.$login.'">';
                                                 if ($right == "administrateur"){
                                                     echo '
                                                             <option value="utilisateur">utilisateur</option>
@@ -157,29 +157,25 @@
 
         <script type="text/javascript">
 
-            <?php
-                for ($i = 1; $i < $i_max; $i++){
-                    echo '$("#select'.$i.'").change(function() {
-                        $.ajax(
-                        {
-                            url : "../inc/changeAccessRight.php",
-                            type : "GET",
-                            data: {login: $(this).attr("data-login"), right: $("#select'.$i.' option:selected" ).val()},
-                            dataType : "html",
+            $(".selector").change(function() {
+                $.ajax(
+                {
+                    url : "../inc/changeAccessRight.php",
+                    type : "GET",
+                    data: {login: $(this).attr("data-login"), right: $("option:selected", this).val()},
+                    dataType : "html",
 
-                            success: function(data){
-                                var output = jQuery.parseJSON(data);
-                                    
-                                if (output.success != 1) // Error
-                                {
-                                    alert(output.msg);
-                                }
-                            }
+                    success: function(data){
+                        var output = jQuery.parseJSON(data);
                             
-                        });
-                    });';
-                }
-            ?>
+                        if (output.success != 1) // Error
+                        {
+                            alert(output.msg);
+                        }
+                    }
+                    
+                });
+            });
 
         </script>
     </body>

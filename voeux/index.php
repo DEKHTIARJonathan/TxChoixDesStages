@@ -109,7 +109,6 @@
                         $sth->bindParam(':login', $login);
 
                         $login = $_SESSION['login'];
-                        $stages = array();
                         
                         $sth->execute();
                         
@@ -141,10 +140,9 @@
                                         <td style="vertical-align:middle;">'.$city.'</td>
                                         <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
                                         <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
-                                        <td style="vertical-align:middle;"><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
-                                        <td style="vertical-align:middle;"><div id="score'.$id.'" data-score="'.$note.'"></div></td>
+                                        <td style="vertical-align:middle;"><a data-toggle="modal" class="link" data-stage="'.$id.'" href="#stageFullDesc">Détails</a></td>
+                                        <td style="vertical-align:middle;"><div class="score" data-stage="'.$id.'" data-score="'.$note.'"></div></td>
                                     </tr>';
-                            $stages[] = $id;
                         }
                         
                     ?>
@@ -171,10 +169,7 @@
               $.fn.raty.defaults.path = '../raty/img';
 
              
-            <?php
-                foreach ($stages as $id){
-
-                echo '$("#score'.$id.'").raty({
+                $(".score").raty({
                     cancel   : true,
                     cancelOff: "cancel-off.png",
                     cancelOn : "cancel-on.png",
@@ -189,7 +184,7 @@
                         {
                             url : "vote.php",
                             type : "GET",
-                            data: { stageID: $(this).attr("id").substring(5), note: score },
+                            data: { stageID: $(this).attr("data-stage"), note: score },
                             dataType : "html",
 
                             success: function(data){
@@ -201,33 +196,24 @@
                         });
                     },
                 });
-                ';
-                }  
-            ?>
-              
-
             });
 
-            <?php
-                foreach ($stages as $id){
-                    echo '$("#link'.$id.'").click(function()
-                    {
-                        $("stageFullDesc").modal({show:true});
-                        $.ajax(
-                        {
-                            url : "stageDesc.php",
-                            type : "GET",
-                            data: { stageID: $(this).attr("id").substring(4)},
-                            dataType : "html",
+            $(".link").click(function()
+            {
+                $("stageFullDesc").modal({show:true});
+                $.ajax(
+                {
+                    url : "stageDesc.php",
+                    type : "GET",
+                    data: { stageID: $(this).attr("data-stage")},
+                    dataType : "html",
 
-                            success: function(data){
-                                $("#stageFullDesc").html(data);
-                            }
-                            
-                        });
-                    });';
-                }
-            ?>
+                    success: function(data){
+                        $("#stageFullDesc").html(data);
+                    }
+                    
+                });
+            });
 
         </script>
     </body>

@@ -161,8 +161,8 @@
                                         <td style="vertical-align:middle;">'.$city.'</td>
                                         <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
                                         <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
-                                        <td style="vertical-align:middle;"><a data-toggle="modal" id="link'.$id.'" href="#stageFullDesc">Détails</a></td>
-                                        <td style="vertical-align:middle;">'.$nbrDemande.' : <a data-toggle="modal" id="link2'.$id.'" href="#stageDemandeurs">Demandeurs</a></div></td>
+                                        <td style="vertical-align:middle;"><a data-toggle="modal" class="link1" data-stage="'.$id.'" href="#stageFullDesc">Détails</a></td>
+                                        <td style="vertical-align:middle;">'.$nbrDemande.' : <a data-toggle="modal" class="link2" data-stage="'.$id.'" href="#stageDemandeurs">Demandeurs</a></div></td>
                                     </tr>';
                             $stages[] = $id;
                         }
@@ -187,47 +187,39 @@
 
         <script type="text/javascript">
 
-            <?php
-                foreach ($stages as $id){
-                    echo '$("#link'.$id.'").click(function()
-                    {
-                        $("stageFullDesc").modal({show:true});
-                        $.ajax(
-                        {
-                            url : "stageDesc.php",
-                            type : "GET",
-                            data: { stageID: $(this).attr("id").substring(4)},
-                            dataType : "html",
+            $(".link1").click(function()
+            {
+                $("stageFullDesc").modal({show:true});
+                $.ajax(
+                {
+                    url : "stageDesc.php",
+                    type : "GET",
+                    data: { stageID: $(this).attr("data-stage")},
+                    dataType : "html",
 
-                            success: function(data){
-                                $("#stageFullDesc").html(data);
-                            }
-                            
-                        });
-                    });';
-                }
-            ?>
+                    success: function(data){
+                        $("#stageFullDesc").html(data);
+                    }
+                    
+                });
+            });
 
-            <?php
-                foreach ($stages as $id){
-                    echo '$("#link2'.$id.'").click(function()
-                    {
-                        $("stageFullDesc").modal({show:true});
-                        $.ajax(
-                        {
-                            url : "stageDemandeurs.php",
-                            type : "GET",
-                            data: { stageID: $(this).attr("id").substring(5)},
-                            dataType : "html",
+            $(".link2").click(function()
+            {
+                $("stageFullDesc").modal({show:true});
+                $.ajax(
+                {
+                    url : "stageDemandeurs.php",
+                    type : "GET",
+                    data: { stageID: $(this).attr("data-stage")},
+                    dataType : "html",
 
-                            success: function(data){
-                                $("#stageDemandeurs").html(data);
-                            }
-                            
-                        });
-                    });';
-                }
-            ?>
+                    success: function(data){
+                        $("#stageDemandeurs").html(data);
+                    }
+                    
+                });
+            });
 
         </script>
     </body>

@@ -104,47 +104,50 @@
                 
               
                     <?php
-    
-                        $sth = $connexion->prepare('SELECT idStage as id, numSerie, titreStage as titre, nomEntreprise as entreprise, uv, pays, ville, departement as dpt , coalesce(tVotes.note, "0") as note  FROM stages as tStages LEFT OUTER JOIN ( SELECT note, stage, login FROM votes) as tVotes ON tVotes.`stage`= tStages.idStage and tVotes.login = :login ORDER BY note DESC, numSerie');
-                        $sth->bindParam(':login', $login);
 
-                        $login = $_SESSION['login'];
-                        
-                        $sth->execute();
-                        
-                        while ($row = $sth->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-                        
+                        if (isset($_SESSION['login']))
+                        {
+                            $sth = $connexion->prepare('SELECT idStage as id, numSerie, titreStage as titre, nomEntreprise as entreprise, uv, pays, ville, departement as dpt , coalesce(tVotes.note, "0") as note  FROM stages as tStages LEFT OUTER JOIN ( SELECT note, stage, login FROM votes) as tVotes ON tVotes.`stage`= tStages.idStage and tVotes.login = :login ORDER BY note DESC, numSerie');
+                            $sth->bindParam(':login', $login);
 
-                            $id = $row['id'];
+                            $login = $_SESSION['login'];
                             
-                            $note = $row['note'];
+                            $sth->execute();
+                            
+                            while ($row = $sth->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
+                            
 
-                            $pays = $row['pays'];
-                            $numSerie = $row['numSerie'];
-                            $ville = $row['ville'];
-                            $dpt = $row['dpt'];
-                            $titre = $row['titre'];
-                            $entreprise = $row['entreprise'];
-                            $uv = $row['uv'];
+                                $id = $row['id'];
+                                
+                                $note = $row['note'];
 
-                            // Ce passage sert à afficher la ville des stages en France et le pays des stages à l'étranger.
-                            if (strtolower($pays) == "france")
-                                $city = $ville."(".$dpt.")";
-                            else
-                                $city = $pays; 
+                                $pays = $row['pays'];
+                                $numSerie = $row['numSerie'];
+                                $ville = $row['ville'];
+                                $dpt = $row['dpt'];
+                                $titre = $row['titre'];
+                                $entreprise = $row['entreprise'];
+                                $uv = $row['uv'];
 
-                            echo 
-                                    '<tr>
-                                        <td style="vertical-align:middle;">'.$numSerie.'</td>
-                                        <td style="vertical-align:middle;">'.$uv.'</td>
-                                        <td style="vertical-align:middle;">'.$city.'</td>
-                                        <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
-                                        <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
-                                        <td style="vertical-align:middle;"><a data-toggle="modal" class="link" data-stage="'.$id.'" href="#stageFullDesc">Détails</a></td>
-                                        <td style="vertical-align:middle;"><div class="score" data-stage="'.$id.'" data-score="'.$note.'"></div></td>
-                                    </tr>';
-                        }
+                                // Ce passage sert à afficher la ville des stages en France et le pays des stages à l'étranger.
+                                if (strtolower($pays) == "france")
+                                    $city = $ville."(".$dpt.")";
+                                else
+                                    $city = $pays; 
+
+                                echo 
+                                        '<tr>
+                                            <td style="vertical-align:middle;">'.$numSerie.'</td>
+                                            <td style="vertical-align:middle;">'.$uv.'</td>
+                                            <td style="vertical-align:middle;">'.$city.'</td>
+                                            <td style="max-width: 300px;vertical-align:middle;">'.$titre.'</td>
+                                            <td style="max-width: 100px;vertical-align:middle;">'.$entreprise.'</td>
+                                            <td style="vertical-align:middle;"><a data-toggle="modal" class="link" data-stage="'.$id.'" href="#stageFullDesc">Détails</a></td>
+                                            <td style="vertical-align:middle;"><div class="score" data-stage="'.$id.'" data-score="'.$note.'"></div></td>
+                                        </tr>';
+                            }
                         
+                        }
                     ?>
                     </tbody>
                 </table>

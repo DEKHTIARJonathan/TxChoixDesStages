@@ -5,7 +5,7 @@
     session_start();
     register_login(); // Connection au CAS
     
-    if (!$_SESSION['auth']['logged'])
+    if (!isset($_SESSION['auth']['logged']) || !$_SESSION['auth']['logged'])
         header('Location: '.$_CONFIG['cas_url'].'login?service='.$_CONFIG['service']);
     else {
     	$_SESSION['login'] = $_SESSION['auth']["login_utc"];

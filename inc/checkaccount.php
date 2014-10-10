@@ -6,19 +6,29 @@
     require_once $root.'/inc/checksession.php';
     require_once $root.'/inc/dbconnect.php';
 
-    $login = $_SESSION['login'];
-
-    $stmt = $connexion->prepare("select count(*) as 'exist' from users where `casLogin` = :login");
-    $stmt->bindParam(':login', $login);
-
-    $stmt-> execute();
-
-    $userInDB = $stmt -> fetch();
-
-    if(!$userInDB['exist'])
+    if (isset($_SESSION['login']))
     {
-    	$currentAddr = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-    	if ($currentAddr != $_CONFIG['home'])
-    		header('Location: '.$_CONFIG['home'].'account/index.php');
+       $login = $_SESSION['login'];
+
+        $stmt = $connexion->prepare("select count(*) as 'exist' from users where `casLogin` = :login");
+        $stmt->bindParam(':login', $login);
+
+        $stmt-> execute();
+
+        $userInDB = $stmt -> fetch();
+
+        if(!$userInDB['exist'])
+        {
+            $currentAddr = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+            if ($currentAddr != $_CONFIG['home'])
+                header('Location: '.$_CONFIG['home'].'account/index.php');
+        } 
     }
+    else
+    {
+        $currentAddr = "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+        if ($currentAddr != $_CONFIG['home'])
+            header('Location: '.$_CONFIG['home']);
+    }
+    
 ?>

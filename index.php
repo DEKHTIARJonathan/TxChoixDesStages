@@ -25,8 +25,6 @@
               }
         </style>
         
-        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-        
         <script src="scripts/jquery-1.9.1.min.js"  ></script>
 
         

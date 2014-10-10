@@ -8,5 +8,3 @@
     		header('Location: '.$_CONFIG['home']);
     }
 ?>
-
-

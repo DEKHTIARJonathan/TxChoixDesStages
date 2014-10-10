@@ -22,5 +22,3 @@
     		header('Location: '.$_CONFIG['home'].'account/index.php');
     }
 ?>
-
-

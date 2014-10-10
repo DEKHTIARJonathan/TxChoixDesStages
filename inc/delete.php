@@ -52,4 +52,4 @@
         return $rslt['nbrAdmin'] <= 1;
     }
 
-?>  
+?>

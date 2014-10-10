@@ -12,5 +12,4 @@ $_CONFIG['cas_url'] = "https://cas.utc.fr/cas/";
 $_CONFIG['home'] = "http://stagestx.jonathandekhtiar.eu/";
 $_CONFIG['service'] = $_CONFIG['home']."inc/connect.php";
 
-
 ?>

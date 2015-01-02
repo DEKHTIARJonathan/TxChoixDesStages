@@ -3,7 +3,7 @@
         Auth.php
     */
     $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-	require_once $root.'/class/Cas.class.php';
+    require_once $root.'/class/Cas.class.php';
     require_once $root.'/config.inc.php';
 
     if(!isset($_SESSION['auth']))
@@ -30,8 +30,6 @@
 				$_SESSION['auth'] = Array("logged" => False, "login_utc" => "", "cas_url" => Cas::getUrl());
 				echo $_CONFIG['cas_url'].'login?service='.$_CONFIG['service'];
 			} else {
-				// TODO: Verifier que l'utilisateur en question à des droits de vente.
-				//       Sinon on le refuse ^^ ici seulement les vendeurs ont le droit de s'authentifier...
 				$_SESSION['auth'] = Array("logged" => True, "login_utc" => $login, "cas_url" => Cas::getUrl());
 			}
 		}
